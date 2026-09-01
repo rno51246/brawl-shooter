@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Brawl Shooter Pro</title>
+  <style>
+    :root {
+      --brawl-blue: #00e5ff; --brawl-pink: #ff007f; --brawl-yellow: #ffee00;
+      --brawl-purple: #8a2be2; --brawl-dark: #0b0c10; --brawl-green: #39ff14;
+    }
+    body {
+      font-family: 'Arial Black', sans-serif; background: radial-gradient(circle, #1a1c29, var(--brawl-dark));
+      color: white; text-align: center; margin: 0; padding: 5px; user-select: none; overflow: hidden;
+    }
+    .container {
+      max-width: 750px; height: 94vh; margin: 1vh auto;
+      background: rgba(20, 22, 30, 0.95); border: 4px solid var(--brawl-pink); border-radius: 20px;
+      padding: 10px; box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); position: relative;
+      display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;
+    }
+    h1 { color: var(--brawl-yellow); text-shadow: 3px 3px 0px var(--brawl-pink), 4px 4px 0px #000; font-size: 26px; margin: 0; letter-spacing: 2px; }
+    .screen { display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; }
+    .active-screen { display: flex; }
+    .home-banner { background: linear-gradient(135deg, var(--brawl-purple), var(--brawl-pink)); padding: 10px; border-radius: 12px; font-size: 13px; font-weight: bold; width: 90%; margin-bottom: 5px; }
+    .select-title { font-size: 12px; color: var(--brawl-blue); font-weight: bold; margin: 3px 0; text-align: left; width: 90%; }
+    .mode-select { display: flex; gap: 10px; width: 90%; margin-bottom: 5px; }
+    .mode-btn { flex: 1; background: #2a2d3d; border: 2px solid #4f545c; color: white; padding: 6px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 12px; }
+    .mode-btn.selected { background: var(--brawl-blue); color: black; box-shadow: 0 0 10px var(--brawl-blue); border-color: white; }
+    .char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 90%; margin-bottom: 10px; }
+    .char-card { background: linear-gradient(180deg, #3a3d52, #1e212a); border: 2px solid #555; border-radius: 12px; padding: 5px; cursor: pointer; text-align: center; }
+    .char-card.selected { border-color: var(--brawl-yellow); box-shadow: 0 0 12px var(--brawl-yellow); background: #2d3142; }
+    .char-avatar { font-size: 26px; } .char-name { font-weight: bold; font-size: 11px; margin-top: 2px; }
+    .start-btn { background: linear-gradient(180deg, var(--brawl-green), #27ae60); color: black; border: none; padding: 10px 40px; font-size: 20px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 0px #1e7e34; }
+    .hud { display: flex; justify-content: space-between; width: 100%; font-size: 14px; font-weight: bold; color: var(--brawl-blue); height: 20px; }
+    .battle-layout { display: flex; width: 100%; height: calc(100% - 30px); gap: 10px; margin-top: 5px; }
+    .battle-field { flex: 1; background: #13151c; border-radius: 12px; border: 3px solid var(--brawl-purple); position: relative; overflow: hidden; cursor: crosshair; }
+    .side-panel { width: 110px; display: flex; flex-direction: column; gap: 5px; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 10px; justify-content: flex-start; }
+    .hp-row { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-size: 10px; width: 100%; }
+    .hp-bar-container { background: #333; border-radius: 4px; overflow: hidden; border: 1px solid #000; height: 10px; width: 100%; }
+    .hp-bar { height: 100%; width: 100%; transition: width 0.2s; background: linear-gradient(90deg, #2ecc71, var(--brawl-green)); }
+    .target { width: 40px; height: 40px; background: radial-gradient(circle, #ff4d4d, var(--brawl-pink)); border: 2px solid white; border-radius: 50%; position: absolute; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 10px var(--brawl-pink); }
+    .player-unit { width: 30px; height: 30px; border-radius: 50%; position: absolute; display: flex; justify-content: center; align-items: center; font-size: 16px; box-shadow: 0 0 10px var(--brawl-blue); }
+    .bullet { width: 8px; height: 8px; border-radius: 50%; position: absolute; z-index: 5; }
+    .player-bullet { background: var(--brawl-blue); box-shadow: 0 0 8px var(--brawl-blue); }
+    .enemy-bullet { background: var(--brawl-pink); box-shadow: 0 0 8px var(--brawl-pink); }
+    .btn-ult-circle { width: 65px; height: 65px; background: #444; border: 3px solid #333; border-radius: 50%; color: #777; font-weight: bold; font-size: 14px; display: flex; justify-content: center; align-items: center; cursor: not-allowed; margin-top: auto; }
+    .btn-ult-circle.ready { background: radial-gradient(circle, var(--brawl-yellow), #d4aa00); border-color: white; color: black; cursor: pointer; box-shadow: 0 0 15px var(--brawl-yellow); }
+    .ult-explosion { width: 160px; height: 160px; background: radial-gradient(circle, var(--brawl-yellow), rgba(255, 0, 127, 0)); border-radius: 50%; position: absolute; z-index: 6; transform: translate(-50%, -50%) scale(0); pointer-events: none; transition: transform 0.25s ease-out; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>BRAWL SHOOTER PRO</h1>
+  
+  <div id="home-screen" class="screen active-screen">
+    <div class="home-banner">チームを組んで出撃！動く敵をタップで狙い撃て！</div>
+    <div class="select-title">▼ バトルモード選択:</div>
+    <div class="mode-select">
+      <button id="mode-solo" class="mode-btn selected" onclick="selectMode('solo')">ソロ (1人)</button>
+      <button id="mode-duo" class="mode-btn" onclick="selectMode('duo')">デュオ (2人)</button>
+      <button id="mode-trio" class="mode-btn" onclick="selectMode('trio')">トリオ (3人)</button>
+    </div>
+    <div class="select-title">▼ リーダーキャラクター選択:</div>
+    <div class="char-grid">
+      <div class="char-card selected" onclick="selectCharacter(0, this)">
+        <div class="char-avatar">🧙‍♀️</div><div class="char-name">ひみこ</div>
+      </div>
+      <div class="char-card" onclick="selectCharacter(1, this)">
+        <div class="char-avatar">⚔️</div><div class="char-name">のぶなが</div>
+      </div>
+      <div class="char-card" onclick="selectCharacter(2, this)">
+        <div class="char-avatar">🤠</div><div class="char-name">りょうま</div>
+      </div>
+    </div>
+    <button class="start-btn" onclick="startGame()">BATTLE START!!</button>
+  </div>
+
+  <div id="battle-screen" class="screen">
+    <div class="hud">
+      <div>SCORE: <span id="score" style="color:var(--brawl-yellow)">0</span></div>
+      <div>TIME: <span id="timer" style="color:var(--brawl-pink)">25</span>s</div>
+    </div>
+    <div class="battle-layout">
+      <div class="battle-field" id="field" onclick="playerShoot(event)">
+        <div id="enemy" class="target">👿</div>
+        <div id="explosion" class="ult-explosion"></div>
+      </div>
+      <div class="side-panel">
+        <div class="hp-row" id="p1-row">
+          <span id="p1-label">あなた:</span>
+          <div class="hp-bar-container"><div id="p1-hp" class="hp-bar"></div></div>
+        </div>
+        <div class="hp-row" id="p2-row" style="display:none;">
+          <span>仲間1:🤠</span>
+          <div class="hp-bar-container"><div id="p2-hp" class="hp-bar"></div></div>
+        </div>
+        <div class="hp-row" id="p3-row" style="display:none;">
+          <span>仲間2:💀</span>
+          <div class="hp-bar-container"><div id="p3-hp" class="hp-bar"></div></div>
+        </div>
+        <div id="ult-button" class="btn-ult-circle" onclick="activateUltMode(event)">ULT!!</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-screen" class="screen">
+    <h2 style="color:var(--brawl-pink)">BATTLE OVER</h2>
+    <h1 style="font-size: 36px; margin: 5px 0;">SCORE: <span id="final-score">0</span></h1>
+    <div id="result-comment" style="font-size: 13px; color: var(--brawl-blue); margin-bottom: 5px;"></div>
+    <button class="start-btn" style="background:var(--brawl-purple); color:white;" onclick="location.reload()">HOME</button>
+  </div>
+</div>
+
+<script>
+const chars = [{ name: "ひみこ", avatar: "🧙‍♀️" }, { name: "のぶなが", avatar: "⚔️" }, { name: "りょうま", avatar: "🤠" }];
+let gameMode = 'solo', selectedCharIdx = 0, score = 0, timeLeft = 25, combo = 0, isUltReady = false, isUltModeActive = false;
+let gameTimer = null, loopTimer = null, aiShootTimer = null, enemyShootTimer = null;
+let enemyX = 300, enemyY = 100, edx = 5, edy = 4;
+let team = [];
+
+function selectMode(mode) {
+  gameMode = mode;
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById(`mode-${mode}`).classList.add('selected');
+}
+function selectCharacter(idx, element) {
+  selectedCharIdx = idx;
+  document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected'));
+  element.classList.add('selected');
+}
+function startGame() {
+  document.getElementById("home-screen").classList.remove("active-screen");
+  document.getElementById("battle-screen").classList.add("active-screen");
+  
+  score = 0; timeLeft = 25; combo = 0; isUltReady = false; isUltModeActive = false;
+  document.getElementById("score").innerText = score;
+  document.getElementById("timer").innerText = timeLeft;
+  
+  const f = document.getElementById("field");
+  document.querySelectorAll('.player-unit').forEach(u => u.remove());
+  
+  let leader = chars[selectedCharIdx];
+  document.getElementById("p1-label").innerText = leader.avatar + " " + leader.name;
+  team = [{ id: 'p1', name: leader.name, avatar: leader.avatar, hp: 100, x: 40, y: 150 }];
+  document.getElementById("p1-row").style.display = "flex";
+  
+  if (gameMode === 'duo' || gameMode === 'trio') {
+    team.push({ id: 'p2', name: 'コルト', avatar: '🤠', hp: 100, x: 40, y: 80 });
+    document.getElementById("p2-row").style.display = "flex";
+  } else { document.getElementById("p2-row").style.display = "none"; }
+  
+  if (gameMode === 'trio') {
+    team.push({ id: 'p3', name: 'ポコ', avatar: '💀', hp: 100, x: 40, y: 220 });
