@@ -1,148 +1,2654 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Brawl Shooter Pro</title>
-  <style>
-    :root {
-      --brawl-blue: #00e5ff; --brawl-pink: #ff007f; --brawl-yellow: #ffee00;
-      --brawl-purple: #8a2be2; --brawl-dark: #0b0c10; --brawl-green: #39ff14;
-    }
-    body {
-      font-family: sans-serif; background: radial-gradient(circle, #1a1c29, var(--brawl-dark));
-      color: white; text-align: center; margin: 0; padding: 5px; user-select: none; overflow: hidden;
-    }
-    .container {
-      max-width: 750px; height: 94vh; margin: 1vh auto;
-      background: rgba(20, 22, 30, 0.95); border: 4px solid var(--brawl-pink); border-radius: 20px;
-      padding: 10px; box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); position: relative;
-      display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;
-    }
-    h1 { color: var(--brawl-yellow); text-shadow: 3px 3px 0px var(--brawl-pink), 4px 4px 0px #000; font-size: 26px; margin: 0; }
-    .screen { display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; }
-    .active-screen { display: flex; }
-    .home-banner { background: linear-gradient(135deg, var(--brawl-purple), var(--brawl-pink)); padding: 10px; border-radius: 12px; font-size: 13px; font-weight: bold; width: 90%; margin-bottom: 5px; }
-    .select-title { font-size: 12px; color: var(--brawl-blue); font-weight: bold; margin: 3px 0; text-align: left; width: 90%; }
-    .mode-select { display: flex; gap: 10px; width: 90%; margin-bottom: 5px; }
-    .mode-btn { flex: 1; background: #2a2d3d; border: 2px solid #4f545c; color: white; padding: 6px; border-radius: 12px; cursor: pointer; font-weight: bold; font-size: 12px; }
-    .mode-btn.selected { background: var(--brawl-blue); color: black; box-shadow: 0 0 10px var(--brawl-blue); border-color: white; }
-    .char-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 90%; margin-bottom: 10px; }
-    .char-card { background: linear-gradient(180deg, #3a3d52, #1e212a); border: 2px solid #555; border-radius: 12px; padding: 5px; cursor: pointer; text-align: center; }
-    .char-card.selected { border-color: var(--brawl-yellow); box-shadow: 0 0 12px var(--brawl-yellow); background: #2d3142; }
-    .char-avatar { font-size: 26px; } .char-name { font-weight: bold; font-size: 11px; margin-top: 2px; }
-    .start-btn { background: linear-gradient(180deg, var(--brawl-green), #27ae60); color: black; border: none; padding: 10px 40px; font-size: 20px; font-weight: bold; border-radius: 30px; cursor: pointer; box-shadow: 0 4px 0px #1e7e34; }
-    .hud { display: flex; justify-content: space-between; width: 100%; font-size: 14px; font-weight: bold; color: var(--brawl-blue); height: 20px; }
-    .battle-layout { display: flex; width: 100%; height: calc(100% - 30px); gap: 10px; margin-top: 5px; }
-    .battle-field { flex: 1; background: #13151c; border-radius: 12px; border: 3px solid var(--brawl-purple); position: relative; overflow: hidden; cursor: crosshair; }
-    .side-panel { width: 110px; display: flex; flex-direction: column; gap: 5px; background: rgba(0,0,0,0.3); padding: 5px; border-radius: 10px; justify-content: flex-start; }
-    .hp-row { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; font-size: 10px; width: 100%; }
-    .hp-bar-container { background: #333; border-radius: 4px; overflow: hidden; border: 1px solid #000; height: 10px; width: 100%; }
-    .hp-bar { height: 100%; width: 100%; transition: width 0.2s; background: linear-gradient(90deg, #2ecc71, var(--brawl-green)); }
-    .target { width: 40px; height: 40px; background: radial-gradient(circle, #ff4d4d, var(--brawl-pink)); border: 2px solid white; border-radius: 50%; position: absolute; display: flex; justify-content: center; align-items: center; font-size: 18px; box-shadow: 0 0 10px var(--brawl-pink); }
-    .player-unit { width: 30px; height: 30px; border-radius: 50%; position: absolute; display: flex; justify-content: center; align-items: center; font-size: 16px; box-shadow: 0 0 10px var(--brawl-blue); }
-    .bullet { width: 8px; height: 8px; border-radius: 50%; position: absolute; z-index: 5; }
-    .player-bullet { background: var(--brawl-blue); box-shadow: 0 0 8px var(--brawl-blue); }
-    .enemy-bullet { background: var(--brawl-pink); box-shadow: 0 0 8px var(--brawl-pink); }
-    .btn-ult-circle { width: 65px; height: 65px; background: #444; border: 3px solid #333; border-radius: 50%; color: #777; font-weight: bold; font-size: 14px; display: flex; justify-content: center; align-items: center; cursor: not-allowed; margin-top: auto; }
-    .btn-ult-circle.ready { background: radial-gradient(circle, var(--brawl-yellow), #d4aa00); border-color: white; color: black; cursor: pointer; box-shadow: 0 0 15px var(--brawl-yellow); }
-    .ult-explosion { width: 160px; height: 160px; background: radial-gradient(circle, var(--brawl-yellow), rgba(255, 0, 127, 0)); border-radius: 50%; position: absolute; z-index: 6; transform: translate(-50%, -50%) scale(0); pointer-events: none; transition: transform 0.25s ease-out; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>BRAWL ARENA</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#10131b;
+  font-family:Arial,"Noto Sans JP",sans-serif;
+  user-select:none;
+}
+
+button{
+  font-family:inherit;
+}
+
+.screen{
+  width:100vw;
+  height:100vh;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* =========================
+   HOME
+========================= */
+
+#home{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  overflow:auto;
+  padding:20px;
+  background:
+    radial-gradient(circle at 50% 20%,#39415e,#141722 65%);
+  color:white;
+}
+
+.logo{
+  font-size:clamp(40px,8vw,76px);
+  font-weight:1000;
+  font-style:italic;
+  letter-spacing:-3px;
+  color:#ffe600;
+  text-shadow:
+    4px 4px 0 #101010,
+    8px 8px 0 #e91e63;
+  margin:0 0 5px;
+}
+
+.logo-sub{
+  color:#8ceeff;
+  font-weight:900;
+  font-size:13px;
+  letter-spacing:3px;
+  margin-bottom:22px;
+}
+
+.section{
+  width:min(760px,94vw);
+  margin:7px 0;
+}
+
+.section-title{
+  font-size:13px;
+  font-weight:1000;
+  color:#ffe600;
+  margin-bottom:7px;
+}
+
+.modes{
+  display:flex;
+  gap:8px;
+}
+
+.mode{
+  flex:1;
+  padding:12px 5px;
+  border-radius:13px;
+  border:3px solid #555b6d;
+  background:#252a3a;
+  color:#fff;
+  font-weight:1000;
+  cursor:pointer;
+}
+
+.mode.selected{
+  background:#00d5ef;
+  border-color:#fff;
+  color:#071016;
+  box-shadow:0 0 16px #00e5ff;
+}
+
+.characters{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.character{
+  min-height:175px;
+  padding:10px;
+  border-radius:16px;
+  border:3px solid #555b6d;
+  background:linear-gradient(#42485e,#242837);
+  color:white;
+  cursor:pointer;
+  text-align:center;
+}
+
+.character.selected{
+  border-color:#ffe600;
+  box-shadow:0 0 18px #ffe600;
+  transform:translateY(-3px);
+}
+
+.character .emoji{
+  font-size:47px;
+}
+
+.character .name{
+  font-weight:1000;
+  font-size:19px;
+}
+
+.character .description{
+  margin-top:5px;
+  color:#d8dbea;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.start-button,
+.home-button{
+  margin-top:18px;
+  padding:15px 55px;
+  border:0;
+  border-radius:40px;
+  background:linear-gradient(#55ff69,#15a63e);
+  color:#071008;
+  font-size:22px;
+  font-weight:1000;
+  box-shadow:0 6px 0 #086326;
+  cursor:pointer;
+}
+
+.start-button:active,
+.home-button:active{
+  transform:translateY(5px);
+  box-shadow:0 1px 0 #086326;
+}
+
+
+/* =========================
+   GAME
+========================= */
+
+#game{
+  position:relative;
+  background:#263b25;
+  overflow:hidden;
+}
+
+#canvas{
+  width:100%;
+  height:100%;
+  display:block;
+}
+
+#hud{
+  position:absolute;
+  left:10px;
+  right:10px;
+  top:10px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  pointer-events:none;
+  z-index:10;
+}
+
+.hud-box{
+  min-width:80px;
+  padding:7px 11px;
+  border-radius:10px;
+  border:2px solid rgba(255,255,255,.2);
+  background:rgba(0,0,0,.65);
+  color:white;
+  font-weight:1000;
+  text-align:center;
+}
+
+#hpHud{color:#54ff69}
+#scoreHud{color:#55e9ff}
+#timeHud{color:#ffe600}
+
+#reloadBar{
+  position:absolute;
+  top:52px;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  height:8px;
+  border-radius:8px;
+  background:#222;
+  overflow:hidden;
+  z-index:10;
+  pointer-events:none;
+}
+
+#reloadFill{
+  height:100%;
+  width:100%;
+  background:#00e5ff;
+}
+
+#ammo{
+  position:absolute;
+  left:50%;
+  top:63px;
+  transform:translateX(-50%);
+  color:white;
+  font-size:11px;
+  font-weight:1000;
+  z-index:10;
+  pointer-events:none;
+}
+
+#announcement{
+  position:absolute;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%) scale(.5);
+  color:#ffe600;
+  font-size:clamp(38px,9vw,85px);
+  font-weight:1000;
+  font-style:italic;
+  text-shadow:5px 5px #111;
+  z-index:20;
+  pointer-events:none;
+  opacity:0;
+  white-space:nowrap;
+}
+
+#announcement.show{
+  animation:announce .8s ease-out;
+}
+
+@keyframes announce{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+  25%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}
+  75%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.1)}
+}
+
+#combo{
+  position:absolute;
+  left:50%;
+  top:105px;
+  transform:translateX(-50%);
+  color:#fff;
+  font-size:20px;
+  font-weight:1000;
+  text-shadow:2px 2px #111;
+  pointer-events:none;
+  z-index:10;
+  opacity:0;
+}
+
+#combo.active{
+  opacity:1;
+  animation:comboPop .2s;
+}
+
+@keyframes comboPop{
+  0%{transform:translateX(-50%) scale(.6)}
+  100%{transform:translateX(-50%) scale(1)}
+}
+
+
+/* =========================
+   MOBILE CONTROLS
+========================= */
+
+#controls{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:30;
+}
+
+#joystick{
+  position:absolute;
+  left:22px;
+  bottom:22px;
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:3px solid rgba(255,255,255,.2);
+  pointer-events:auto;
+  touch-action:none;
+}
+
+#stick{
+  position:absolute;
+  width:54px;
+  height:54px;
+  left:35px;
+  top:35px;
+  border-radius:50%;
+  background:rgba(255,255,255,.35);
+  border:2px solid rgba(255,255,255,.4);
+}
+
+#attackButton{
+  position:absolute;
+  right:25px;
+  bottom:32px;
+  width:88px;
+  height:88px;
+  border-radius:50%;
+  border:5px solid #fff;
+  background:radial-gradient(circle at 35% 30%,#ff728f,#d71950);
+  color:white;
+  font-size:15px;
+  font-weight:1000;
+  box-shadow:0 0 18px rgba(255,30,90,.6);
+  pointer-events:auto;
+  touch-action:none;
+}
+
+#attackButton:active{
+  transform:scale(.92);
+}
+
+#ultButton{
+  position:absolute;
+  right:128px;
+  bottom:45px;
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  border:4px solid #555;
+  background:#3a3a3a;
+  color:#999;
+  font-size:13px;
+  font-weight:1000;
+  pointer-events:auto;
+}
+
+#ultButton.ready{
+  background:radial-gradient(circle,#fff82d,#ff9c00);
+  color:#111;
+  border-color:#fff;
+  box-shadow:0 0 25px #ffe600;
+  animation:ultPulse .7s infinite alternate;
+}
+
+@keyframes ultPulse{
+  from{transform:scale(1)}
+  to{transform:scale(1.08)}
+}
+
+#ultPercent{
+  position:absolute;
+  right:140px;
+  bottom:18px;
+  font-size:10px;
+  color:white;
+  font-weight:1000;
+  pointer-events:none;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+#result{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(circle at 50% 30%,#414967,#141722);
+  color:white;
+  text-align:center;
+}
+
+.result-title{
+  color:#ffe600;
+  font-size:clamp(42px,9vw,72px);
+  font-weight:1000;
+  font-style:italic;
+  text-shadow:5px 5px #e91e63;
+}
+
+.result-score{
+  font-size:40px;
+  font-weight:1000;
+  margin:10px;
+}
+
+.result-stats{
+  line-height:2;
+  color:#9ceeff;
+  font-weight:900;
+}
+
+@media(max-width:600px){
+
+  #home{
+    justify-content:flex-start;
+    padding-top:25px;
+  }
+
+  .logo{
+    font-size:40px;
+  }
+
+  .character{
+    min-height:155px;
+  }
+
+  .character .emoji{
+    font-size:36px;
+  }
+
+  .character .name{
+    font-size:15px;
+  }
+
+  .character .description{
+    font-size:9px;
+  }
+
+  .start-button{
+    margin-bottom:20px;
+  }
+
+}
+</style>
 </head>
+
 <body>
-<div class="container">
-  <h1>BRAWL SHOOTER PRO</h1>
-  
-  <div id="home-screen" class="screen active-screen">
-    <div class="home-banner">チームを組んで出撃！動く敵をタップで狙い撃て！</div>
-    <div class="select-title">▼ バトルモード選択:</div>
-    <div class="mode-select">
-      <button id="mode-solo" class="mode-btn selected" onclick="selectMode('solo')">ソロ (1人)</button>
-      <button id="mode-duo" class="mode-btn" onclick="selectMode('duo')">デュオ (2人)</button>
-      <button id="mode-trio" class="mode-btn" onclick="selectMode('trio')">トリオ (3人)</button>
-    </div>
-    <div class="select-title">▼ リーダーキャラクター選択:</div>
-    <div class="char-grid">
-      <div class="char-card selected" onclick="selectCharacter(0, this)">
-        <div class="char-avatar">🧙‍♀️</div><div class="char-name">ひみこ</div>
-      </div>
-      <div class="char-card" onclick="selectCharacter(1, this)">
-        <div class="char-avatar">⚔️</div><div class="char-name">のぶなが</div>
-      </div>
-      <div class="char-card" onclick="selectCharacter(2, this)">
-        <div class="char-avatar">🤠</div><div class="char-name">りょうま</div>
-      </div>
-    </div>
-    <button class="start-btn" onclick="startGame()">BATTLE START!!</button>
-  </div>
 
-  <div id="battle-screen" class="screen">
-    <div class="hud">
-      <div>SCORE: <span id="score" style="color:var(--brawl-yellow)">0</span></div>
-      <div>TIME: <span id="timer" style="color:var(--brawl-pink)">25</span>s</div>
-    </div>
-    <div class="battle-layout">
-      <div class="battle-field" id="field" onclick="playerShoot(event)">
-        <div id="enemy" class="target">👿</div>
-        <div id="explosion" class="ult-explosion"></div>
-      </div>
-      <div class="side-panel">
-        <div class="hp-row" id="p1-row">
-          <span id="p1-label">あなた:</span>
-          <div class="hp-bar-container"><div id="p1-hp" class="hp-bar"></div></div>
-        </div>
-        <div class="hp-row" id="p2-row" style="display:none;">
-          <span>仲間1:🤠</span>
-          <div class="hp-bar-container"><div id="p2-hp" class="hp-bar"></div></div>
-        </div>
-        <div class="hp-row" id="p3-row" style="display:none;">
-          <span>仲間2:💀</span>
-          <div class="hp-bar-container"><div id="p3-hp" class="hp-bar"></div></div>
-        </div>
-        <div id="ult-button" class="btn-ult-circle" onclick="activateUltMode(event)">ULT!!</div>
-      </div>
+<div id="home" class="screen">
+
+  <div class="logo">BRAWL ARENA</div>
+  <div class="logo-sub">MOVE • AIM • BRAWL</div>
+
+  <div class="section">
+    <div class="section-title">BATTLE MODE</div>
+
+    <div class="modes">
+      <button class="mode selected" data-mode="solo">SOLO</button>
+      <button class="mode" data-mode="duo">DUO</button>
+      <button class="mode" data-mode="trio">TRIO</button>
     </div>
   </div>
 
-  <div id="result-screen" class="screen">
-    <h2 style="color:var(--brawl-pink)">BATTLE OVER</h2>
-    <h1 style="font-size: 36px; margin: 5px 0;">SCORE: <span id="final-score">0</span></h1>
-    <div id="result-comment" style="font-size: 13px; color: var(--brawl-blue); margin-bottom: 5px;"></div>
-    <button class="start-btn" style="background:var(--brawl-purple); color:white;" onclick="location.reload()">HOME</button>
+  <div class="section">
+    <div class="section-title">CHOOSE YOUR BRAWLER</div>
+
+    <div class="characters">
+
+      <div class="character selected" data-char="0">
+        <div class="emoji">🧙‍♀️</div>
+        <div class="name">HIMIKO</div>
+        <div class="description">
+          魔法弾を飛ばす<br>
+          ULT：周囲大爆発<br>
+          バランスタイプ
+        </div>
+      </div>
+
+      <div class="character" data-char="1">
+        <div class="emoji">⚔️</div>
+        <div class="name">NOBUNAGA</div>
+        <div class="description">
+          強力な近距離攻撃<br>
+          ULT：巨大斬撃<br>
+          高HP・高火力
+        </div>
+      </div>
+
+      <div class="character" data-char="2">
+        <div class="emoji">🤠</div>
+        <div class="name">RYOMA</div>
+        <div class="description">
+          3方向に射撃<br>
+          ULT：全方向連射<br>
+          高速タイプ
+        </div>
+      </div>
+
+    </div>
   </div>
+
+  <button id="startButton" class="start-button">
+    BATTLE START!
+  </button>
+
 </div>
 
-<script>
-const chars = [{ name: "ひみこ", avatar: "🧙‍♀️" }, { name: "のぶなが", avatar: "⚔️" }, { name: "りょうま", avatar: "🤠" }];
-let gameMode = 'solo', selectedCharIdx = 0, score = 0, timeLeft = 25, combo = 0, isUltReady = false, isUltModeActive = false;
-let gameTimer = null, loopTimer = null, aiShootTimer = null, enemyShootTimer = null;
-let enemyX = 300, enemyY = 100, edx = 5, edy = 4;
-let team = [];
 
-function selectMode(mode) {
-  gameMode = mode;
-  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('selected'));
-  document.getElementById(`mode-${mode}`).classList.add('selected');
+<div id="game" class="screen hidden">
+
+  <canvas id="canvas"></canvas>
+
+  <div id="hud">
+    <div class="hud-box">❤️ <span id="hpHud">100</span></div>
+    <div class="hud-box">⭐ <span id="scoreHud">0</span></div>
+    <div class="hud-box">⏱ <span id="timeHud">60</span></div>
+  </div>
+
+  <div id="reloadBar">
+    <div id="reloadFill"></div>
+  </div>
+
+  <div id="ammo">● ● ●</div>
+
+  <div id="announcement"></div>
+
+  <div id="combo"></div>
+
+  <div id="controls">
+
+    <div id="joystick">
+      <div id="stick"></div>
+    </div>
+
+    <button id="ultButton">ULT</button>
+    <div id="ultPercent">0%</div>
+
+    <button id="attackButton">ATTACK</button>
+
+  </div>
+
+</div>
+
+
+<div id="result" class="screen">
+
+  <div class="result-title">BATTLE OVER</div>
+
+  <div class="result-score">
+    ⭐ <span id="finalScore">0</span>
+  </div>
+
+  <div class="result-stats">
+    KNOCKOUT：<span id="finalKills">0</span><br>
+    MAX COMBO：<span id="finalCombo">0</span>
+  </div>
+
+  <button id="homeButton" class="home-button">
+    HOME
+  </button>
+
+</div>
+
+
+<script>
+
+/* ==========================================================
+   BRAWL ARENA
+   1ファイル完結版
+========================================================== */
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+let W=900;
+let H=650;
+
+function resize(){
+
+  const r=canvas.getBoundingClientRect();
+
+  W=r.width;
+  H=r.height;
+
+  const dpr=Math.min(window.devicePixelRatio||1,2);
+
+  canvas.width=W*dpr;
+  canvas.height=H*dpr;
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+
 }
-function selectCharacter(idx, element) {
-  selectedCharIdx = idx;
-  document.querySelectorAll('.char-card').forEach(c => c.classList.remove('selected'));
-  element.classList.add('selected');
+
+window.addEventListener("resize",resize);
+
+
+/* ==========================================================
+   CHARACTERS
+========================================================== */
+
+const CHARACTERS=[
+
+  {
+    name:"HIMIKO",
+    emoji:"🧙‍♀️",
+    maxHp:110,
+    speed:3.2,
+    damage:18,
+    reload:500,
+    ammoMax:3,
+    bulletSpeed:8,
+    bulletRange:430,
+    spread:0,
+    ult:"爆発"
+  },
+
+  {
+    name:"NOBUNAGA",
+    emoji:"⚔️",
+    maxHp:145,
+    speed:2.5,
+    damage:32,
+    reload:700,
+    ammoMax:2,
+    bulletSpeed:7,
+    bulletRange:170,
+    spread:0,
+    ult:"斬撃"
+  },
+
+  {
+    name:"RYOMA",
+    emoji:"🤠",
+    maxHp:95,
+    speed:4,
+    damage:12,
+    reload:650,
+    ammoMax:3,
+    bulletSpeed:9,
+    bulletRange:500,
+    spread:.18,
+    ult:"連射"
+  }
+
+];
+
+let selectedChar=0;
+let gameMode="solo";
+
+
+/* ==========================================================
+   MENU
+========================================================== */
+
+document.querySelectorAll(".mode").forEach(btn=>{
+
+  btn.addEventListener("click",()=>{
+
+    document.querySelectorAll(".mode")
+      .forEach(x=>x.classList.remove("selected"));
+
+    btn.classList.add("selected");
+
+    gameMode=btn.dataset.mode;
+
+  });
+
+});
+
+
+document.querySelectorAll(".character").forEach(card=>{
+
+  card.addEventListener("click",()=>{
+
+    document.querySelectorAll(".character")
+      .forEach(x=>x.classList.remove("selected"));
+
+    card.classList.add("selected");
+
+    selectedChar=Number(card.dataset.char);
+
+  });
+
+});
+
+
+/* ==========================================================
+   GAME STATE
+========================================================== */
+
+let player=null;
+
+let enemies=[];
+let allies=[];
+let bullets=[];
+let particles=[];
+let damageTexts=[];
+let bushes=[];
+let walls=[];
+
+let score=0;
+let kills=0;
+let combo=0;
+let maxCombo=0;
+
+let timeLeft=60;
+
+let running=false;
+let countdown=false;
+
+let lastTime=0;
+let lastShot=0;
+
+let ammo=3;
+let reloadTimer=0;
+
+let ultCharge=0;
+
+let mouseX=0;
+let mouseY=0;
+let attacking=false;
+
+
+/* ==========================================================
+   KEYBOARD
+========================================================== */
+
+const keys={};
+
+window.addEventListener("keydown",e=>{
+
+  keys[e.key.toLowerCase()]=true;
+
+  if(e.key===" "){
+    e.preventDefault();
+  }
+
+});
+
+window.addEventListener("keyup",e=>{
+  keys[e.key.toLowerCase()]=false;
+});
+
+
+/* ==========================================================
+   MOUSE
+========================================================== */
+
+canvas.addEventListener("mousemove",e=>{
+
+  const r=canvas.getBoundingClientRect();
+
+  mouseX=e.clientX-r.left;
+  mouseY=e.clientY-r.top;
+
+});
+
+canvas.addEventListener("mousedown",e=>{
+
+  attacking=true;
+
+  shoot(mouseX,mouseY);
+
+});
+
+window.addEventListener("mouseup",()=>{
+  attacking=false;
+});
+
+
+/* ==========================================================
+   TOUCH AIM
+========================================================== */
+
+canvas.addEventListener("touchstart",e=>{
+
+  if(e.touches.length!==1)return;
+
+  const r=canvas.getBoundingClientRect();
+  const t=e.touches[0];
+
+  mouseX=t.clientX-r.left;
+  mouseY=t.clientY-r.top;
+
+},{passive:false});
+
+
+canvas.addEventListener("touchmove",e=>{
+
+  if(e.touches.length!==1)return;
+
+  const r=canvas.getBoundingClientRect();
+  const t=e.touches[0];
+
+  mouseX=t.clientX-r.left;
+  mouseY=t.clientY-r.top;
+
+},{passive:false});
+
+
+/* ==========================================================
+   MOBILE JOYSTICK
+========================================================== */
+
+const joystick=document.getElementById("joystick");
+const stick=document.getElementById("stick");
+
+let joyX=0;
+let joyY=0;
+
+function updateJoystick(x,y){
+
+  const r=joystick.getBoundingClientRect();
+
+  let dx=x-(r.left+r.width/2);
+  let dy=y-(r.top+r.height/2);
+
+  const max=40;
+
+  const d=Math.sqrt(dx*dx+dy*dy);
+
+  if(d>max){
+
+    dx=dx/d*max;
+    dy=dy/d*max;
+
+  }
+
+  joyX=dx/max;
+  joyY=dy/max;
+
+  stick.style.left=(35+dx)+"px";
+  stick.style.top=(35+dy)+"px";
+
 }
-function startGame() {
-  document.getElementById("home-screen").classList.remove("active-screen");
-  document.getElementById("battle-screen").classList.add("active-screen");
-  score = 0; timeLeft = 25; combo = 0; isUltReady = false; isUltModeActive = false;
-  document.getElementById("score").innerText = score;
-  document.getElementById("timer").innerText = timeLeft;
-  const f = document.getElementById("field");
-  document.querySelectorAll('.player-unit').forEach(u => u.remove());
-  let leader = chars[selectedCharIdx];
-  document.getElementById("p1-label").innerText = leader.avatar + " " + leader.name;
-  team = [{ id: 'p1', name: leader.name, avatar: leader.avatar, hp: 100, x: 40, y: 150 }];
-  document.getElementById("p1-row").style.display = "flex";
-  if (gameMode === 'duo' || gameMode === 'trio') {
-    team.push({ id: 'p2', name: 'コルト', avatar: '🤠', hp: 100, x: 40, y: 80 });
-    document.getElementById("p2-row").style.display = "flex";
-  } else { document.getElementById("p2-row").style.display = "none"; }
-  if (gameMode === 'trio') {
-    team.push({ id: 'p3', name: 'ポコ', avatar: '💀', hp: 100, x: 40, y: 220 });
+
+function resetJoystick(){
+
+  joyX=0;
+  joyY=0;
+
+  stick.style.left="35px";
+  stick.style.top="35px";
+
+}
+
+joystick.addEventListener("pointerdown",e=>{
+
+  joystick.setPointerCapture(e.pointerId);
+
+  updateJoystick(e.clientX,e.clientY);
+
+});
+
+joystick.addEventListener("pointermove",e=>{
+
+  updateJoystick(e.clientX,e.clientY);
+
+});
+
+joystick.addEventListener("pointerup",resetJoystick);
+joystick.addEventListener("pointercancel",resetJoystick);
+
+
+/* ==========================================================
+   ATTACK BUTTON
+========================================================== */
+
+const attackButton=document.getElementById("attackButton");
+
+attackButton.addEventListener("pointerdown",e=>{
+
+  e.preventDefault();
+
+  attacking=true;
+
+  autoAimShoot();
+
+});
+
+attackButton.addEventListener("pointerup",()=>{
+  attacking=false;
+});
+
+attackButton.addEventListener("pointercancel",()=>{
+  attacking=false;
+});
+
+
+/* ==========================================================
+   AUTO AIM
+========================================================== */
+
+function autoAimShoot(){
+
+  if(!player)return;
+
+  let nearest=null;
+  let best=Infinity;
+
+  for(const enemy of enemies){
+
+    if(enemy.hp<=0)continue;
+
+    const d=distance(player,enemy);
+
+    if(d<best){
+
+      best=d;
+      nearest=enemy;
+
+    }
+
+  }
+
+  if(nearest){
+
+    shoot(nearest.x,nearest.y);
+
+  }
+
+}
+
+
+/* ==========================================================
+   START GAME
+========================================================== */
+
+document.getElementById("startButton")
+.addEventListener("click",startGame);
+
+
+function startGame(){
+
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("result").style.display="none";
+  document.getElementById("game").classList.remove("hidden");
+
+  resize();
+
+  score=0;
+  kills=0;
+  combo=0;
+  maxCombo=0;
+  timeLeft=60;
+  ultCharge=0;
+  ammo=CHARACTERS[selectedChar].ammoMax;
+  reloadTimer=0;
+
+  enemies=[];
+  allies=[];
+  bullets=[];
+  particles=[];
+  damageTexts=[];
+  bushes=[];
+  walls=[];
+
+  const c=CHARACTERS[selectedChar];
+
+  player={
+    x:W/2,
+    y:H-110,
+    radius:22,
+    hp:c.maxHp,
+    maxHp:c.maxHp,
+    speed:c.speed,
+    damage:c.damage,
+    reload:c.reload,
+    bulletSpeed:c.bulletSpeed,
+    bulletRange:c.bulletRange,
+    spread:c.spread,
+    ammoMax:c.ammoMax,
+    alive:true,
+    invisible:false
+  };
+
+  createMap();
+
+  for(let i=0;i<6;i++){
+    spawnEnemy();
+  }
+
+  if(gameMode==="duo"||gameMode==="trio"){
+    allies.push(createAlly("🤠",W/2-75,H-150));
+  }
+
+  if(gameMode==="trio"){
+    allies.push(createAlly("💀",W/2+75,H-150));
+  }
+
+  running=false;
+  countdown=true;
+
+  showAnnouncement("3");
+
+  setTimeout(()=>{
+    if(countdown)showAnnouncement("2");
+  },700);
+
+  setTimeout(()=>{
+    if(countdown)showAnnouncement("1");
+  },1400);
+
+  setTimeout(()=>{
+
+    if(!countdown)return;
+
+    showAnnouncement("BRAWL!");
+
+    countdown=false;
+    running=true;
+
+    lastTime=performance.now();
+
+    requestAnimationFrame(loop);
+
+  },2100);
+
+}
+
+
+/* ==========================================================
+   MAP
+========================================================== */
+
+function createMap(){
+
+  walls=[
+
+    {x:W*.08,y:H*.25,w:W*.25,h:30},
+    {x:W*.67,y:H*.25,w:W*.25,h:30},
+
+    {x:W*.08,y:H*.68,w:W*.25,h:30},
+    {x:W*.67,y:H*.68,w:W*.25,h:30},
+
+    {x:W*.43,y:H*.39,w:W*.14,h:95},
+
+    {x:W*.36,y:H*.52,w:W*.10,h:25},
+    {x:W*.54,y:H*.52,w:W*.10,h:25}
+
+  ];
+
+  bushes=[
+
+    {x:W*.04,y:H*.40,w:W*.18,h:100},
+    {x:W*.78,y:H*.40,w:W*.18,h:100},
+
+    {x:W*.35,y:H*.08,w:W*.12,h:70},
+    {x:W*.53,y:H*.08,w:W*.12,h:70},
+
+    {x:W*.35,y:H*.82,w:W*.12,h:65},
+    {x:W*.53,y:H*.82,w:W*.12,h:65}
+
+  ];
+
+}
+
+
+/* ==========================================================
+   ENEMY
+========================================================== */
+
+function spawnEnemy(){
+
+  const margin=50;
+
+  let x;
+  let y;
+
+  for(let tries=0;tries<20;tries++){
+
+    x=margin+Math.random()*(W-margin*2);
+    y=50+Math.random()*H*.28;
+
+    const test={x,y,radius:21};
+
+    if(!walls.some(w=>circleRect(test,w))){
+      break;
+    }
+
+  }
+
+  enemies.push({
+
+    x,
+    y,
+
+    radius:21,
+
+    hp:70,
+    maxHp:70,
+
+    speed:1.1+Math.random()*.8,
+
+    shootTimer:500+Math.random()*1000,
+
+    wander:Math.random()*Math.PI*2,
+
+    visible:true
+
+  });
+
+}
+
+
+/* ==========================================================
+   ALLY
+========================================================== */
+
+function createAlly(emoji,x,y){
+
+  return{
+
+    x,
+    y,
+
+    radius:20,
+
+    hp:100,
+    maxHp:100,
+
+    speed:2.4,
+
+    emoji,
+
+    shootTimer:300+Math.random()*500
+
+  };
+
+}
+
+
+/* ==========================================================
+   GAME LOOP
+========================================================== */
+
+function loop(now){
+
+  if(!running)return;
+
+  const dt=Math.min((now-lastTime)/16.67,2);
+
+  lastTime=now;
+
+  update(dt);
+  draw();
+
+  if(attacking){
+    autoAimShoot();
+  }
+
+  requestAnimationFrame(loop);
+
+}
+
+
+/* ==========================================================
+   UPDATE
+========================================================== */
+
+function update(dt){
+
+  timeLeft-=dt/60;
+
+  if(timeLeft<=0){
+
+    endGame();
+    return;
+
+  }
+
+
+  updatePlayer(dt);
+  updateReload(dt);
+  updateBullets(dt);
+  updateEnemies(dt);
+  updateAllies(dt);
+  updateParticles(dt);
+  updateTexts(dt);
+
+  updateHUD();
+
+}
+
+
+/* ==========================================================
+   PLAYER
+========================================================== */
+
+function updatePlayer(dt){
+
+  let x=0;
+  let y=0;
+
+  if(keys["w"]||keys["arrowup"])y--;
+  if(keys["s"]||keys["arrowdown"])y++;
+  if(keys["a"]||keys["arrowleft"])x--;
+  if(keys["d"]||keys["arrowright"])x++;
+
+  x+=joyX;
+  y+=joyY;
+
+  const d=Math.sqrt(x*x+y*y);
+
+  if(d>0){
+
+    x/=d;
+    y/=d;
+
+    moveEntity(
+      player,
+      x*player.speed*dt,
+      y*player.speed*dt
+    );
+
+  }
+
+  player.invisible=isInBush(player);
+
+}
+
+
+/* ==========================================================
+   RELOAD
+========================================================== */
+
+function updateReload(dt){
+
+  if(ammo>=player.ammoMax){
+
+    reloadTimer=0;
+    return;
+
+  }
+
+  reloadTimer+=dt*16.67;
+
+  if(reloadTimer>=player.reload){
+
+    ammo++;
+    reloadTimer=0;
+
+  }
+
+}
+
+
+/* ==========================================================
+   SHOOT
+========================================================== */
+
+function shoot(tx,ty){
+
+  if(!running||!player.alive)return;
+
+  if(ammo<=0)return;
+
+  const now=performance.now();
+
+  if(now-lastShot<player.reload)return;
+
+  lastShot=now;
+  ammo--;
+
+  let angle=Math.atan2(
+    ty-player.y,
+    tx-player.x
+  );
+
+  const shots=selectedChar===2?3:1;
+
+  for(let i=0;i<shots;i++){
+
+    let a=angle;
+
+    if(shots===3){
+      a+=(-1+i)*player.spread;
+    }
+
+    bullets.push({
+
+      x:player.x+Math.cos(a)*27,
+      y:player.y+Math.sin(a)*27,
+
+      vx:Math.cos(a)*player.bulletSpeed,
+      vy:Math.sin(a)*player.bulletSpeed,
+
+      radius:selectedChar===1?8:6,
+
+      damage:player.damage,
+
+      owner:"player",
+
+      life:player.bulletRange/player.bulletSpeed
+
+    });
+
+  }
+
+  addParticles(player.x,player.y,4);
+
+}
+
+
+/* ==========================================================
+   ENEMY SHOOT
+========================================================== */
+
+function enemyShoot(enemy){
+
+  if(!player.alive)return;
+
+  let dx=player.x-enemy.x;
+  let dy=player.y-enemy.y;
+
+  const d=Math.sqrt(dx*dx+dy*dy);
+
+  if(d===0)return;
+
+  dx/=d;
+  dy/=d;
+
+  bullets.push({
+
+    x:enemy.x+dx*23,
+    y:enemy.y+dy*23,
+
+    vx:dx*4.5,
+    vy:dy*4.5,
+
+    radius:5,
+
+    damage:9,
+
+    owner:"enemy",
+
+    life:110
+
+  });
+
+}
+
+
+/* ==========================================================
+   BULLETS
+========================================================== */
+
+function updateBullets(dt){
+
+  for(const b of bullets){
+
+    b.x+=b.vx*dt;
+    b.y+=b.vy*dt;
+
+    b.life-=dt;
+
+
+    /* WALL */
+
+    for(const wall of walls){
+
+      if(
+        b.x>wall.x &&
+        b.x<wall.x+wall.w &&
+        b.y>wall.y &&
+        b.y<wall.y+wall.h
+      ){
+
+        b.life=0;
+
+        addParticles(b.x,b.y,3);
+
+      }
+
+    }
+
+
+    /* PLAYER BULLET */
+
+    if(b.owner==="player"){
+
+      for(const enemy of enemies){
+
+        if(enemy.hp<=0)continue;
+
+        if(distance(b,enemy)<b.radius+enemy.radius){
+
+          enemy.hp-=b.damage;
+
+          b.life=0;
+
+          score+=10;
+
+          combo++;
+
+          maxCombo=Math.max(maxCombo,combo);
+
+          ultCharge=Math.min(
+            100,
+            ultCharge+10
+          );
+
+          addDamageText(
+            enemy.x,
+            enemy.y,
+            b.damage
+          );
+
+          addParticles(enemy.x,enemy.y,6);
+
+          showCombo();
+
+
+          if(enemy.hp<=0){
+
+            kills++;
+
+            score+=100;
+
+            combo++;
+
+            maxCombo=Math.max(maxCombo,combo);
+
+            ultCharge=Math.min(
+              100,
+              ultCharge+15
+            );
+
+            addParticles(enemy.x,enemy.y,20);
+
+            addDamageText(
+              enemy.x,
+              enemy.y,
+              "KO!"
+            );
+
+            setTimeout(()=>{
+
+              if(running){
+                spawnEnemy();
+              }
+
+            },600);
+
+          }
+
+          break;
+
+        }
+
+      }
+
+    }
+
+
+    /* ENEMY BULLET */
+
+    if(b.owner==="enemy"){
+
+      if(distance(b,player)<b.radius+player.radius){
+
+        player.hp-=b.damage;
+
+        b.life=0;
+
+        combo=0;
+
+        addDamageText(
+          player.x,
+          player.y,
+          b.damage
+        );
+
+        addParticles(player.x,player.y,8);
+
+        if(player.hp<=0){
+
+          player.hp=0;
+
+          endGame();
+
+        }
+
+      }
+
+    }
+
+  }
+
+  bullets=bullets.filter(
+    b=>b.life>0 &&
+       b.x>-40 &&
+       b.x<W+40 &&
+       b.y>-40 &&
+       b.y<H+40
+  );
+
+}
+
+
+/* ==========================================================
+   ENEMIES
+========================================================== */
+
+function updateEnemies(dt){
+
+  for(const enemy of enemies){
+
+    if(enemy.hp<=0)continue;
+
+
+    const hiddenPlayer=
+      player.invisible &&
+      !isSameBush(player,enemy);
+
+    let dx=player.x-enemy.x;
+    let dy=player.y-enemy.y;
+
+    const d=Math.sqrt(dx*dx+dy*dy);
+
+
+    if(hiddenPlayer){
+
+      enemy.wander+=.025*dt;
+
+      moveEntity(
+        enemy,
+        Math.cos(enemy.wander)*enemy.speed*dt,
+        Math.sin(enemy.wander)*enemy.speed*dt
+      );
+
+      continue;
+
+    }
+
+
+    if(d>190){
+
+      dx/=d;
+      dy/=d;
+
+      moveEntity(
+        enemy,
+        dx*enemy.speed*dt,
+        dy*enemy.speed*dt
+      );
+
+    }
+    else{
+
+      enemy.wander+=.03*dt;
+
+      moveEntity(
+        enemy,
+        Math.cos(enemy.wander)*enemy.speed*.8*dt,
+        Math.sin(enemy.wander)*enemy.speed*.8*dt
+      );
+
+    }
+
+
+    enemy.shootTimer-=dt*16.67;
+
+    if(
+      enemy.shootTimer<=0 &&
+      d<450 &&
+      !isLineBlocked(enemy,player)
+    ){
+
+      enemyShoot(enemy);
+
+      enemy.shootTimer=
+        900+Math.random()*900;
+
+    }
+
+  }
+
+}
+
+
+/* ==========================================================
+   ALLIES
+========================================================== */
+
+function updateAllies(dt){
+
+  for(const ally of allies){
+
+    if(ally.hp<=0)continue;
+
+    let target=null;
+    let best=Infinity;
+
+    for(const enemy of enemies){
+
+      if(enemy.hp<=0)continue;
+
+      const d=distance(ally,enemy);
+
+      if(d<best){
+
+        best=d;
+        target=enemy;
+
+      }
+
+    }
+
+    if(!target)continue;
+
+    let dx=target.x-ally.x;
+    let dy=target.y-ally.y;
+
+    const d=Math.sqrt(dx*dx+dy*dy);
+
+    if(d>160){
+
+      dx/=d;
+      dy/=d;
+
+      moveEntity(
+        ally,
+        dx*ally.speed*dt,
+        dy*ally.speed*dt
+      );
+
+    }
+
+
+    ally.shootTimer-=dt*16.67;
+
+    if(
+      ally.shootTimer<=0 &&
+      d<420 &&
+      !isLineBlocked(ally,target)
+    ){
+
+      bullets.push({
+
+        x:ally.x,
+        y:ally.y,
+
+        vx:dx/d*5,
+        vy:dy/d*5,
+
+        radius:5,
+
+        damage:11,
+
+        owner:"player",
+
+        life:90
+
+      });
+
+      ally.shootTimer=700;
+
+    }
+
+  }
+
+}
+
+
+/* ==========================================================
+   ULT
+========================================================== */
+
+document.getElementById("ultButton")
+.addEventListener("click",activateUlt);
+
+
+function activateUlt(){
+
+  if(!running)return;
+
+  if(ultCharge<100)return;
+
+  ultCharge=0;
+
+
+  /* HIMIKO */
+
+  if(selectedChar===0){
+
+    const radius=155;
+
+    addExplosion(
+      player.x,
+      player.y,
+      radius
+    );
+
+    for(const enemy of enemies){
+
+      if(
+        enemy.hp>0 &&
+        distance(player,enemy)<radius
+      ){
+
+        enemy.hp-=60;
+
+        score+=40;
+
+        addDamageText(
+          enemy.x,
+          enemy.y,
+          60
+        );
+
+        addParticles(enemy.x,enemy.y,15);
+
+        if(enemy.hp<=0){
+
+          kills++;
+          score+=100;
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  /* NOBUNAGA */
+
+  else if(selectedChar===1){
+
+    const angle=Math.atan2(
+      mouseY-player.y,
+      mouseX-player.x
+    );
+
+    addSlash(
+      player.x,
+      player.y,
+      angle
+    );
+
+    for(const enemy of enemies){
+
+      if(enemy.hp<=0)continue;
+
+      const dx=enemy.x-player.x;
+      const dy=enemy.y-player.y;
+
+      const d=Math.sqrt(dx*dx+dy*dy);
+
+      if(d>180)continue;
+
+      let a=Math.atan2(dy,dx);
+
+      let diff=Math.atan2(
+        Math.sin(a-angle),
+        Math.cos(a-angle)
+      );
+
+      if(Math.abs(diff)<.7){
+
+        enemy.hp-=100;
+
+        score+=50;
+
+        addDamageText(
+          enemy.x,
+          enemy.y,
+          100
+        );
+
+        if(enemy.hp<=0){
+
+          kills++;
+          score+=100;
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  /* RYOMA */
+
+  else{
+
+    for(let i=0;i<16;i++){
+
+      const a=
+        Math.PI*2*i/16;
+
+      bullets.push({
+
+        x:player.x,
+        y:player.y,
+
+        vx:Math.cos(a)*8,
+        vy:Math.sin(a)*8,
+
+        radius:6,
+
+        damage:24,
+
+        owner:"player",
+
+        life:70
+
+      });
+
+    }
+
+    addExplosion(
+      player.x,
+      player.y,
+      70
+    );
+
+  }
+
+}
+
+
+/* ==========================================================
+   MOVEMENT / COLLISION
+========================================================== */
+
+function moveEntity(entity,dx,dy){
+
+  const oldX=entity.x;
+  const oldY=entity.y;
+
+  entity.x+=dx;
+  entity.y+=dy;
+
+  entity.x=Math.max(
+    entity.radius,
+    Math.min(W-entity.radius,entity.x)
+  );
+
+  entity.y=Math.max(
+    entity.radius,
+    Math.min(H-entity.radius,entity.y)
+  );
+
+
+  for(const wall of walls){
+
+    if(circleRect(entity,wall)){
+
+      entity.x=oldX;
+      entity.y=oldY;
+
+      break;
+
+    }
+
+  }
+
+}
+
+
+function circleRect(circle,rect){
+
+  const cx=Math.max(
+    rect.x,
+    Math.min(circle.x,rect.x+rect.w)
+  );
+
+  const cy=Math.max(
+    rect.y,
+    Math.min(circle.y,rect.y+rect.h)
+  );
+
+  const dx=circle.x-cx;
+  const dy=circle.y-cy;
+
+  return dx*dx+dy*dy<
+    circle.radius*circle.radius;
+
+}
+
+
+/* ==========================================================
+   BUSH
+========================================================== */
+
+function isInBush(entity){
+
+  return bushes.some(b=>
+    entity.x>b.x &&
+    entity.x<b.x+b.w &&
+    entity.y>b.y &&
+    entity.y<b.y+b.h
+  );
+
+}
+
+
+function isSameBush(a,b){
+
+  for(const bush of bushes){
+
+    const aa=
+      a.x>bush.x &&
+      a.x<bush.x+bush.w &&
+      a.y>bush.y &&
+      a.y<bush.y+bush.h;
+
+    const bb=
+      b.x>bush.x &&
+      b.x<bush.x+bush.w &&
+      b.y>bush.y &&
+      b.y<bush.y+bush.h;
+
+    if(aa&&bb)return true;
+
+  }
+
+  return false;
+
+}
+
+
+/* ==========================================================
+   LINE BLOCK
+========================================================== */
+
+function isLineBlocked(a,b){
+
+  for(const wall of walls){
+
+    if(lineIntersectsRect(
+      a.x,a.y,
+      b.x,b.y,
+      wall
+    )){
+
+      return true;
+
+    }
+
+  }
+
+  return false;
+
+}
+
+
+function lineIntersectsRect(x1,y1,x2,y2,r){
+
+  for(let i=0;i<=20;i++){
+
+    const t=i/20;
+
+    const x=x1+(x2-x1)*t;
+    const y=y1+(y2-y1)*t;
+
+    if(
+      x>=r.x &&
+      x<=r.x+r.w &&
+      y>=r.y &&
+      y<=r.y+r.h
+    ){
+
+      return true;
+
+    }
+
+  }
+
+  return false;
+
+}
+
+
+/* ==========================================================
+   PARTICLES
+========================================================== */
+
+function addParticles(x,y,count){
+
+  for(let i=0;i<count;i++){
+
+    particles.push({
+
+      x,
+      y,
+
+      vx:(Math.random()-.5)*5,
+      vy:(Math.random()-.5)*5,
+
+      size:2+Math.random()*4,
+
+      life:20+Math.random()*25
+
+    });
+
+  }
+
+}
+
+
+function addExplosion(x,y,r){
+
+  particles.push({
+
+    explosion:true,
+
+    x,
+    y,
+
+    radius:r,
+
+    life:30
+
+  });
+
+}
+
+
+function addSlash(x,y,a){
+
+  particles.push({
+
+    slash:true,
+
+    x,
+    y,
+
+    angle:a,
+
+    life:25,
+
+    radius:180
+
+  });
+
+}
+
+
+function updateParticles(dt){
+
+  for(const p of particles){
+
+    if(p.explosion||p.slash){
+
+      p.life-=dt;
+      continue;
+
+    }
+
+    p.x+=p.vx*dt;
+    p.y+=p.vy*dt;
+
+    p.life-=dt;
+
+  }
+
+  particles=
+    particles.filter(p=>p.life>0);
+
+}
+
+
+/* ==========================================================
+   DAMAGE TEXT
+========================================================== */
+
+function addDamageText(x,y,text){
+
+  damageTexts.push({
+
+    x,
+    y,
+
+    text,
+
+    life:45,
+
+    vy:-.8
+
+  });
+
+}
+
+
+function updateTexts(dt){
+
+  for(const t of damageTexts){
+
+    t.y+=t.vy*dt;
+    t.life-=dt;
+
+  }
+
+  damageTexts=
+    damageTexts.filter(t=>t.life>0);
+
+}
+
+
+function showCombo(){
+
+  const el=document.getElementById("combo");
+
+  if(combo>=2){
+
+    el.textContent=
+      "COMBO ×"+combo;
+
+    el.classList.remove("active");
+
+    void el.offsetWidth;
+
+    el.classList.add("active");
+
+  }
+
+}
+
+
+/* ==========================================================
+   ANNOUNCEMENT
+========================================================== */
+
+function showAnnouncement(text){
+
+  const el=document.getElementById("announcement");
+
+  el.textContent=text;
+
+  el.classList.remove("show");
+
+  void el.offsetWidth;
+
+  el.classList.add("show");
+
+}
+
+
+/* ==========================================================
+   DRAW
+========================================================== */
+
+function draw(){
+
+  ctx.clearRect(0,0,W,H);
+
+
+  /* GROUND */
+
+  ctx.fillStyle="#4d8145";
+  ctx.fillRect(0,0,W,H);
+
+
+  /* GROUND PATTERN */
+
+  ctx.globalAlpha=.10;
+  ctx.strokeStyle="#fff";
+  ctx.lineWidth=1;
+
+  for(let x=0;x<W;x+=40){
+
+    ctx.beginPath();
+    ctx.moveTo(x,0);
+    ctx.lineTo(x,H);
+    ctx.stroke();
+
+  }
+
+  for(let y=0;y<H;y+=40){
+
+    ctx.beginPath();
+    ctx.moveTo(0,y);
+    ctx.lineTo(W,y);
+    ctx.stroke();
+
+  }
+
+  ctx.globalAlpha=1;
+
+
+  /* BUSHES */
+
+  for(const b of bushes){
+
+    ctx.fillStyle="#28652f";
+
+    ctx.fillRect(
+      b.x,b.y,b.w,b.h
+    );
+
+    ctx.globalAlpha=.25;
+
+    ctx.fillStyle="#8fd15a";
+
+    for(let x=b.x+5;x<b.x+b.w;x+=12){
+
+      for(let y=b.y+5;y<b.y+b.h;y+=14){
+
+        ctx.beginPath();
+
+        ctx.arc(
+          x+(y%20),
+          y,
+          3,
+          0,
+          Math.PI*2
+        );
+
+        ctx.fill();
+
+      }
+
+    }
+
+    ctx.globalAlpha=1;
+
+  }
+
+
+  /* WALLS */
+
+  for(const w of walls){
+
+    ctx.fillStyle="#765633";
+
+    ctx.fillRect(
+      w.x,w.y,w.w,w.h
+    );
+
+    ctx.strokeStyle="#35261b";
+    ctx.lineWidth=4;
+
+    ctx.strokeRect(
+      w.x,w.y,w.w,w.h
+    );
+
+  }
+
+
+  /* BULLETS */
+
+  for(const b of bullets){
+
+    ctx.beginPath();
+
+    ctx.arc(
+      b.x,
+      b.y,
+      b.radius,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle=
+      b.owner==="enemy"
+      ? "#ff3f75"
+      : "#00e5ff";
+
+    ctx.shadowBlur=12;
+    ctx.shadowColor=ctx.fillStyle;
+
+    ctx.fill();
+
+    ctx.shadowBlur=0;
+
+  }
+
+
+  /* ALLIES */
+
+  for(const ally of allies){
+
+    if(ally.hp>0){
+
+      drawUnit(
+        ally,
+        "#00e5ff",
+        ally.emoji
+      );
+
+    }
+
+  }
+
+
+  /* ENEMIES */
+
+  for(const enemy of enemies){
+
+    if(enemy.hp<=0)continue;
+
+    if(
+      player.invisible &&
+      !isSameBush(player,enemy)
+    ){
+
+      continue;
+
+    }
+
+    drawUnit(
+      enemy,
+      "#ff3f75",
+      "👿"
+    );
+
+  }
+
+
+  /* PLAYER */
+
+  if(player&&player.alive){
+
+    drawUnit(
+      player,
+      "#ffe600",
+      CHARACTERS[selectedChar].emoji
+    );
+
+  }
+
+
+  /* PARTICLES */
+
+  for(const p of particles){
+
+    if(p.explosion){
+
+      const progress=1-p.life/30;
+
+      ctx.globalAlpha=
+        Math.max(0,p.life/30);
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,
+        p.y,
+        p.radius*progress,
+        0,
+        Math.PI*2
+      );
+
+      ctx.fillStyle="#ffe600";
+      ctx.fill();
+
+      ctx.globalAlpha=1;
+
+    }
+
+    else if(p.slash){
+
+      ctx.globalAlpha=
+        Math.max(0,p.life/25);
+
+      ctx.strokeStyle="#ffe600";
+      ctx.lineWidth=18;
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,
+        p.y,
+        p.radius,
+        p.angle-.65,
+        p.angle+.65
+      );
+
+      ctx.stroke();
+
+      ctx.globalAlpha=1;
+
+    }
+
+    else{
+
+      ctx.globalAlpha=
+        Math.max(0,p.life/40);
+
+      ctx.fillStyle="#ffe600";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        p.x,p.y,p.size,
+        0,Math.PI*2
+      );
+
+      ctx.fill();
+
+      ctx.globalAlpha=1;
+
+    }
+
+  }
+
+
+  /* DAMAGE TEXT */
+
+  ctx.textAlign="center";
+  ctx.font="bold 18px Arial";
+
+  for(const t of damageTexts){
+
+    ctx.globalAlpha=
+      Math.max(0,t.life/45);
+
+    ctx.fillStyle=
+      t.text==="KO!"
+      ? "#ffe600"
+      : "#fff";
+
+    ctx.strokeStyle="#111";
+    ctx.lineWidth=4;
+
+    ctx.strokeText(
+      t.text,
+      t.x,
+      t.y
+    );
+
+    ctx.fillText(
+      t.text,
+      t.x,
+      t.y
+    );
+
+  }
+
+  ctx.globalAlpha=1;
+
+}
+
+
+/* ==========================================================
+   UNIT DRAW
+========================================================== */
+
+function drawUnit(unit,outline,emoji){
+
+  ctx.beginPath();
+
+  ctx.arc(
+    unit.x,
+    unit.y,
+    unit.radius,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fillStyle="#1b1d26";
+  ctx.fill();
+
+  ctx.lineWidth=4;
+  ctx.strokeStyle=outline;
+  ctx.stroke();
+
+
+  ctx.font=
+    (unit.radius*1.35)+"px Arial";
+
+  ctx.textAlign="center";
+  ctx.textBaseline="middle";
+
+  ctx.fillText(
+    emoji,
+    unit.x,
+    unit.y
+  );
+
+
+  /* HP */
+
+  const width=48;
+  const hp=
+    Math.max(0,unit.hp/unit.maxHp);
+
+  ctx.fillStyle="#202020";
+
+  ctx.fillRect(
+    unit.x-width/2,
+    unit.y-unit.radius-13,
+    width,
+    6
+  );
+
+  ctx.fillStyle=
+    hp>.35
+    ? "#45ed59"
+    : "#ff4545";
+
+  ctx.fillRect(
+    unit.x-width/2,
+    unit.y-unit.radius-13,
+    width*hp,
+    6
+  );
+
+}
+
+
+/* ==========================================================
+   DISTANCE
+========================================================== */
+
+function distance(a,b){
+
+  return Math.sqrt(
+    (a.x-b.x)**2+
+    (a.y-b.y)**2
+  );
+
+}
+
+
+/* ==========================================================
+   HUD
+========================================================== */
+
+function updateHUD(){
+
+  document.getElementById("hpHud")
+    .textContent=Math.ceil(player.hp);
+
+  document.getElementById("scoreHud")
+    .textContent=score;
+
+  document.getElementById("timeHud")
+    .textContent=Math.ceil(timeLeft);
+
+  document.getElementById("ultPercent")
+    .textContent=Math.floor(ultCharge)+"%";
+
+
+  const fill=
+    document.getElementById("reloadFill");
+
+  if(ammo>=player.ammoMax){
+
+    fill.style.width="100%";
+
+  }
+  else{
+
+    fill.style.width=
+      Math.min(
+        100,
+        reloadTimer/player.reload*100
+      )+"%";
+
+  }
+
+
+  let ammoText="";
+
+  for(let i=0;i<player.ammoMax;i++){
+
+    ammoText+=
+      i<ammo ? "● " : "○ ";
+
+  }
+
+  document.getElementById("ammo")
+    .textContent=ammoText;
+
+
+  const ult=
+    document.getElementById("ultButton");
+
+  if(ultCharge>=100){
+
+    ult.classList.add("ready");
+
+  }
+  else{
+
+    ult.classList.remove("ready");
+
+  }
+
+}
+
+
+/* ==========================================================
+   END
+========================================================== */
+
+function endGame(){
+
+  if(!running)return;
+
+  running=false;
+  countdown=false;
+
+  player.alive=false;
+
+  document.getElementById("finalScore")
+    .textContent=score;
+
+  document.getElementById("finalKills")
+    .textContent=kills;
+
+  document.getElementById("finalCombo")
+    .textContent=maxCombo;
+
+  document.getElementById("game")
+    .classList.add("hidden");
+
+  document.getElementById("result")
+    .style.display="flex";
+
+}
+
+
+/* ==========================================================
+   HOME
+========================================================== */
+
+document.getElementById("homeButton")
+.addEventListener("click",()=>{
+
+  document.getElementById("result")
+    .style.display="none";
+
+  document.getElementById("home")
+    .classList.remove("hidden");
+
+});
+
+</script>
+
+</body>
+</html>
+```
