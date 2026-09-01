@@ -14,20 +14,20 @@
 
 :root{
   --yellow:#ffd900;
-  --blue:#24c8ff;
-  --pink:#ff3b81;
+  --blue:#27d8ff;
+  --pink:#ff3978;
   --purple:#7545d8;
-  --dark:#11131b;
-  --green:#37e56b;
+  --green:#45ed68;
+  --dark:#101219;
 }
 
 body{
   margin:0;
+  overflow:hidden;
   background:
-    radial-gradient(circle at 50% 20%,#29334f 0%,#10131c 55%,#07080c 100%);
+    radial-gradient(circle at 50% 20%,#35415e,#11141d 60%,#08090d);
   color:white;
   font-family:Arial,"Noto Sans JP",sans-serif;
-  overflow:hidden;
 }
 
 button{
@@ -38,26 +38,26 @@ button{
   width:100vw;
   height:100vh;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
 }
 
 .game{
-  width:min(1100px,96vw);
-  height:min(760px,96vh);
-  background:#171a25;
-  border:5px solid #ff3b81;
+  width:min(1100px,97vw);
+  height:min(760px,97vh);
+  background:#171a24;
+  border:5px solid var(--pink);
   border-radius:24px;
   box-shadow:
-    0 0 30px #ff3b8155,
-    inset 0 0 30px #0008;
-  overflow:hidden;
+    0 0 35px #ff397855,
+    inset 0 0 35px #0008;
   position:relative;
+  overflow:hidden;
 }
 
-/* =========================
-   COMMON
-========================= */
+/* ======================================================
+   HOME
+====================================================== */
 
 .screen{
   position:absolute;
@@ -69,15 +69,11 @@ button{
   display:flex;
 }
 
-/* =========================
-   HOME
-========================= */
-
 #home{
   flex-direction:column;
   align-items:center;
+  padding:15px;
   overflow-y:auto;
-  padding:18px;
 }
 
 .logo{
@@ -85,71 +81,64 @@ button{
   font-weight:1000;
   color:var(--yellow);
   text-shadow:
-    4px 4px 0 #ff3b81,
+    4px 4px 0 var(--pink),
     7px 7px 0 #000;
-  letter-spacing:2px;
-  margin:5px 0 12px;
+  margin:4px 0;
 }
 
 .subtitle{
-  color:#9eeeff;
+  color:#9eefff;
+  font-size:13px;
   font-weight:bold;
-  margin-bottom:12px;
+  margin-bottom:8px;
 }
 
 .section-title{
-  width:min(800px,94%);
-  color:#25d7ff;
+  width:min(850px,95%);
+  color:var(--blue);
   font-size:14px;
   font-weight:bold;
-  margin:8px 0 5px;
+  margin:7px 0 5px;
 }
 
 .mode-grid{
-  width:min(800px,94%);
+  width:min(850px,95%);
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(3,1fr);
   gap:8px;
 }
 
 .mode{
-  padding:12px 5px;
+  padding:11px 5px;
   border-radius:13px;
-  border:2px solid #4b5060;
+  border:2px solid #4d5362;
   background:#292d3a;
   color:white;
   font-weight:bold;
   cursor:pointer;
-  transition:.15s;
-}
-
-.mode:hover{
-  transform:translateY(-2px);
 }
 
 .mode.selected{
-  background:#24c8ff;
-  color:#061018;
+  background:var(--blue);
+  color:#071118;
   border-color:white;
-  box-shadow:0 0 14px #24c8ff;
+  box-shadow:0 0 14px var(--blue);
 }
 
 .character-grid{
-  width:min(800px,94%);
+  width:min(850px,95%);
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:12px;
 }
 
 .character{
-  min-height:160px;
-  background:linear-gradient(#30364a,#1b1e29);
-  border:3px solid #505666;
+  min-height:200px;
+  background:linear-gradient(#343a50,#1a1d27);
+  border:3px solid #555b6b;
   border-radius:18px;
   padding:8px;
   cursor:pointer;
-  position:relative;
-  overflow:hidden;
   transition:.15s;
 }
 
@@ -159,44 +148,39 @@ button{
 
 .character.selected{
   border-color:var(--yellow);
-  box-shadow:0 0 18px #ffd90088;
+  box-shadow:0 0 20px #ffd90088;
 }
 
-.character .portrait{
-  height:80px;
+.portrait{
+  height:90px;
   display:flex;
-  justify-content:center;
   align-items:center;
-}
-
-.char-svg{
-  width:75px;
-  height:75px;
+  justify-content:center;
 }
 
 .char-name{
-  font-size:18px;
+  font-size:19px;
   font-weight:1000;
 }
 
 .char-desc{
   font-size:10px;
-  color:#c9ceda;
-  margin-top:4px;
+  color:#cdd2dd;
+  margin:3px 0 5px;
 }
 
 .stat{
-  margin-top:6px;
   text-align:left;
   font-size:9px;
+  margin-top:3px;
 }
 
 .statbar{
   height:6px;
-  background:#111;
-  border-radius:5px;
-  margin-top:2px;
+  background:#101116;
+  border-radius:4px;
   overflow:hidden;
+  margin-top:2px;
 }
 
 .statfill{
@@ -205,26 +189,168 @@ button{
 }
 
 .start{
-  margin-top:15px;
-  padding:15px 60px;
+  margin:14px 0 8px;
+  padding:14px 60px;
   border:0;
   border-radius:40px;
-  background:linear-gradient(#4dff79,#18a94d);
-  box-shadow:0 5px 0 #087631;
-  color:#071108;
+  background:linear-gradient(#54ff7e,#16a849);
+  color:#061108;
   font-size:22px;
   font-weight:1000;
+  box-shadow:0 5px 0 #08742e;
   cursor:pointer;
 }
 
 .start:active{
   transform:translateY(4px);
-  box-shadow:0 1px 0 #087631;
+  box-shadow:0 1px 0 #08742e;
 }
 
-/* =========================
+/* ======================================================
+   CHARACTER
+====================================================== */
+
+.unit{
+  position:absolute;
+  width:52px;
+  height:62px;
+  transform:translate(-50%,-50%);
+  z-index:30;
+  pointer-events:none;
+}
+
+.unit-shadow{
+  position:absolute;
+  width:44px;
+  height:12px;
+  bottom:-2px;
+  left:4px;
+  background:#0008;
+  border-radius:50%;
+}
+
+.body{
+  position:absolute;
+  left:8px;
+  top:18px;
+  width:36px;
+  height:37px;
+  border:3px solid #181818;
+  border-radius:13px 13px 10px 10px;
+}
+
+.head{
+  position:absolute;
+  left:9px;
+  top:1px;
+  width:34px;
+  height:32px;
+  border:3px solid #181818;
+  border-radius:50%;
+  background:#efbd82;
+  z-index:3;
+}
+
+.eye{
+  position:absolute;
+  width:5px;
+  height:7px;
+  border-radius:50%;
+  background:#151515;
+  top:10px;
+}
+
+.eye.a{left:8px}
+.eye.b{right:8px}
+
+.hair{
+  position:absolute;
+  z-index:5;
+  left:4px;
+  top:-3px;
+  width:44px;
+  height:18px;
+  border-radius:50% 50% 30% 30%;
+}
+
+/* HIMIKO */
+
+.himiko .body{
+  background:#a947dc;
+}
+
+.himiko .hair{
+  background:#f1f1f1;
+}
+
+.himiko .head:after{
+  content:"✦";
+  position:absolute;
+  color:#b83dff;
+  right:-9px;
+  top:-9px;
+  font-size:14px;
+}
+
+/* NOBUNAGA */
+
+.nobunaga .body{
+  background:#315fd3;
+}
+
+.nobunaga .hair{
+  background:#181818;
+  height:23px;
+  border-radius:50% 50% 10% 10%;
+}
+
+.nobunaga .body:after{
+  content:"";
+  position:absolute;
+  left:13px;
+  top:3px;
+  width:5px;
+  height:28px;
+  background:#e8e8e8;
+}
+
+/* RYOMA */
+
+.ryoma .body{
+  background:#c7782b;
+}
+
+.ryoma .hair{
+  background:#67361c;
+}
+
+.ryoma .body:after{
+  content:"";
+  position:absolute;
+  left:6px;
+  top:8px;
+  width:24px;
+  height:5px;
+  background:#ffe0a1;
+}
+
+/* weapon */
+
+.weapon{
+  position:absolute;
+  right:-19px;
+  top:31px;
+  width:28px;
+  height:7px;
+  background:#d3d8df;
+  border:2px solid #222;
+  transform:rotate(-15deg);
+  z-index:6;
+}
+
+/* ======================================================
    BATTLE
-========================= */
+====================================================== */
 
 #battle{
   flex-direction:column;
@@ -234,38 +360,40 @@ button{
 .hud{
   height:62px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  padding:7px 14px;
-  background:linear-gradient(#202533,#11131b);
-  border-bottom:3px solid #353a49;
+  align-items:center;
+  padding:7px 12px;
+  background:linear-gradient(#222735,#11131a);
+  border-bottom:3px solid #343948;
+  z-index:100;
 }
 
 .hud-left{
   display:flex;
-  gap:10px;
   align-items:center;
+  gap:8px;
 }
 
 .score-box,
 .timer-box{
-  padding:6px 11px;
-  border-radius:10px;
-  background:#090b10;
-  border:2px solid #363b49;
+  padding:6px 10px;
+  border-radius:9px;
+  background:#080a0f;
+  border:2px solid #363b48;
+  font-size:13px;
   font-weight:bold;
 }
 
-.score-number{
+.score{
   color:var(--yellow);
 }
 
-.timer-number{
-  color:#ff477e;
+.timer{
+  color:var(--pink);
 }
 
 .combo{
-  color:#24c8ff;
+  color:var(--blue);
   font-weight:1000;
 }
 
@@ -281,257 +409,253 @@ button{
   flex:1;
   position:relative;
   overflow:hidden;
+  border:4px solid var(--purple);
   border-radius:15px;
-  border:4px solid #6c49cf;
-  background:
-    linear-gradient(#3e8a3b,#28662e);
+  background:#32843a;
+  cursor:crosshair;
+  touch-action:none;
 }
 
-/* map decorations */
+/* ======================================================
+   MAP
+====================================================== */
 
-.tile{
+.map-object{
   position:absolute;
   pointer-events:none;
 }
 
 .wall{
   background:
-    linear-gradient(135deg,#756b5c,#50483d);
-  border:3px solid #302b27;
-  box-shadow:inset 0 0 0 2px #948978;
-  border-radius:6px;
+    linear-gradient(135deg,#796f61,#50483d);
+  border:3px solid #2c2824;
+  box-shadow:inset 0 0 0 2px #968a76;
+  border-radius:5px;
 }
 
-.grass{
+.wall.breakable{
   background:
-    radial-gradient(circle,#4aaf4a 0 15%,transparent 16%),
-    radial-gradient(circle,#2d8d3b 0 18%,transparent 19%);
-  background-size:15px 15px;
-  opacity:.95;
+    linear-gradient(135deg,#9a663d,#674225);
+}
+
+.bush{
+  background:
+    radial-gradient(circle,#5ab54b 0 18%,transparent 19%),
+    radial-gradient(circle,#2f8e3d 0 20%,transparent 21%);
+  background-size:16px 16px;
+  border-radius:12px;
 }
 
 .water{
   background:
     repeating-linear-gradient(
       0deg,
-      #278fc2 0px,
-      #278fc2 8px,
-      #37aee0 9px,
-      #278fc2 15px
+      #278fc2 0 8px,
+      #43b5df 9px 11px,
+      #278fc2 12px 17px
     );
   border:3px solid #196e99;
 }
 
-/* units */
+/* ======================================================
+   CHESTS
+====================================================== */
 
-.unit{
+.chest{
   position:absolute;
-  width:48px;
-  height:58px;
-  z-index:20;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-}
-
-.unit-shadow{
-  position:absolute;
-  width:42px;
-  height:12px;
-  background:#0008;
-  border-radius:50%;
-  bottom:-2px;
-  left:3px;
-}
-
-.body{
-  position:absolute;
-  left:7px;
-  top:15px;
   width:34px;
-  height:36px;
-  border-radius:13px 13px 11px 11px;
-  border:3px solid #171717;
+  height:28px;
+  transform:translate(-50%,-50%);
+  background:#a76527;
+  border:3px solid #42230e;
+  border-radius:5px;
+  z-index:14;
+  box-shadow:0 4px 0 #4c2912;
 }
 
-.head{
+.chest:before{
+  content:"";
   position:absolute;
-  left:8px;
-  top:0;
-  width:32px;
+  left:0;
+  top:8px;
+  width:100%;
+  height:5px;
+  background:#e2a238;
+}
+
+.chest:after{
+  content:"";
+  position:absolute;
+  width:7px;
+  height:8px;
+  background:#ffe06b;
+  border:2px solid #5a3a0c;
+  left:11px;
+  top:11px;
+}
+
+/* ======================================================
+   POWER CUBE
+====================================================== */
+
+.power-cube{
+  position:absolute;
+  width:31px;
   height:31px;
-  border-radius:50%;
-  background:#f2bd83;
-  border:3px solid #171717;
-  z-index:2;
+  transform:translate(-50%,-50%);
+  background:#62e34b;
+  border:3px solid white;
+  border-radius:7px;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-weight:1000;
+  font-size:17px;
+  box-shadow:0 0 15px #62e34b;
+  z-index:18;
 }
 
-.eye{
-  position:absolute;
-  width:5px;
-  height:7px;
-  background:#171717;
-  border-radius:50%;
-  top:10px;
-}
-
-.eye.a{left:8px}
-.eye.b{right:8px}
-
-.hair{
-  position:absolute;
-  left:4px;
-  top:-3px;
-  width:38px;
-  height:15px;
-  border-radius:50% 50% 30% 30%;
-  background:#27202b;
-  z-index:3;
-}
-
-.weapon{
-  position:absolute;
-  width:25px;
-  height:7px;
-  background:#bfc4cc;
-  border:2px solid #222;
-  right:-17px;
-  top:29px;
-  transform:rotate(-15deg);
-  z-index:4;
-}
-
-/* characters */
-
-.himiko .body{
-  background:#b845d5;
-}
-
-.himiko .hair{
-  background:#f4f4f4;
-}
-
-.nobunaga .body{
-  background:#315ed9;
-}
-
-.nobunaga .hair{
-  background:#161616;
-}
-
-.ryoma .body{
-  background:#c47b2c;
-}
-
-.ryoma .hair{
-  background:#6d391d;
-}
-
-/* enemies */
+/* ======================================================
+   ENEMY
+====================================================== */
 
 .enemy .body{
-  background:#d72e4d;
+  background:#d93651;
 }
 
 .enemy .head{
-  background:#d6d6d6;
+  background:#d7d7d7;
 }
 
 .enemy .hair{
-  background:#272727;
+  background:#292929;
 }
 
 .enemy .weapon{
-  background:#ffda33;
+  background:#ffd43d;
 }
 
-/* bullets */
+/* ======================================================
+   PROJECTILES
+====================================================== */
 
 .projectile{
   position:absolute;
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  z-index:30;
+  transform:translate(-50%,-50%);
+  z-index:50;
   pointer-events:none;
 }
 
-.bullet-himiko{
-  background:#d67cff;
-  box-shadow:0 0 12px #e69cff;
+.magic{
+  width:15px;
+  height:15px;
+  border-radius:50%;
+  background:#d978ff;
+  box-shadow:0 0 15px #e9a0ff;
 }
 
-.bullet-nobunaga{
-  width:18px;
-  height:6px;
-  border-radius:3px;
-  background:#58c7ff;
+.bullet{
+  width:12px;
+  height:7px;
+  border-radius:4px;
+  background:#6fd9ff;
   box-shadow:0 0 12px #58c7ff;
 }
 
-.bullet-ryoma{
-  width:16px;
-  height:16px;
-  background:#ff9e3d;
-  box-shadow:0 0 14px #ff9e3d;
+.bigbullet{
+  width:23px;
+  height:23px;
+  border-radius:50%;
+  background:#ff9c36;
+  box-shadow:0 0 18px #ff8b22;
+  border:3px solid #fff0b0;
 }
 
-/* side panel */
+/* ======================================================
+   AIM
+====================================================== */
+
+#aimLine{
+  position:absolute;
+  height:3px;
+  transform-origin:left center;
+  background:#ffffff80;
+  box-shadow:0 0 7px white;
+  z-index:10;
+  pointer-events:none;
+}
+
+#aimDot{
+  position:absolute;
+  width:12px;
+  height:12px;
+  transform:translate(-50%,-50%);
+  border:2px solid white;
+  border-radius:50%;
+  z-index:11;
+  pointer-events:none;
+}
+
+/* ======================================================
+   SIDE
+====================================================== */
 
 .side{
-  width:155px;
+  width:160px;
   background:#171a23;
   border:2px solid #303544;
   border-radius:12px;
-  padding:8px;
+  padding:7px;
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:7px;
 }
 
-.player-card{
-  background:#222634;
+.card{
+  background:#232735;
   padding:6px;
-  border-radius:9px;
+  border-radius:8px;
 }
 
-.player-name{
+.card-name{
   font-size:11px;
   font-weight:bold;
 }
 
 .hp{
   height:11px;
-  background:#111;
+  margin-top:4px;
+  background:#0e1015;
   border:1px solid #000;
   border-radius:5px;
   overflow:hidden;
-  margin-top:4px;
 }
 
 .hp-fill{
   width:100%;
   height:100%;
-  background:linear-gradient(90deg,#26d969,#8aff40);
+  background:linear-gradient(90deg,#25d56a,#8aff40);
   transition:.15s;
 }
 
-.power{
+.info{
   padding:7px;
+  background:#292e3c;
   border-radius:8px;
-  background:#2a2e3c;
-  font-size:11px;
   text-align:center;
+  font-size:10px;
 }
 
-.power strong{
-  color:#ffd900;
+.info strong{
+  color:var(--yellow);
 }
 
 .ult{
   margin-top:auto;
-  min-height:78px;
+  min-height:82px;
   border-radius:50%;
-  border:4px solid #414141;
+  border:4px solid #444;
   background:#303238;
   color:#777;
   font-weight:1000;
@@ -539,16 +663,16 @@ button{
 }
 
 .ult.ready{
-  background:radial-gradient(circle,#fff36a,#ffbf00);
-  color:#171000;
+  background:radial-gradient(circle,#fff46a,#ffbc00);
+  color:#211700;
   border-color:white;
-  box-shadow:0 0 22px #ffd900;
+  box-shadow:0 0 24px var(--yellow);
   cursor:pointer;
   animation:pulse 1s infinite;
 }
 
-.ult.active{
-  background:#ff477e;
+.ult.targeting{
+  background:#ff3978;
   color:white;
   border-color:white;
 }
@@ -557,19 +681,21 @@ button{
   50%{transform:scale(1.07)}
 }
 
-/* controls */
+/* ======================================================
+   CONTROLS
+====================================================== */
 
 .controls{
   position:absolute;
   inset:0;
+  z-index:90;
   pointer-events:none;
-  z-index:80;
 }
 
 .joystick{
   position:absolute;
-  left:20px;
-  bottom:20px;
+  left:18px;
+  bottom:18px;
   width:105px;
   height:105px;
   border-radius:50%;
@@ -581,164 +707,192 @@ button{
 
 .stick{
   position:absolute;
-  width:48px;
-  height:48px;
   left:25px;
   top:25px;
+  width:48px;
+  height:48px;
   border-radius:50%;
   background:#ffffff45;
   border:2px solid #ffffff70;
 }
 
-.attack-btn{
+.attack{
   position:absolute;
-  right:28px;
-  bottom:30px;
-  width:76px;
-  height:76px;
+  right:25px;
+  bottom:25px;
+  width:78px;
+  height:78px;
   border-radius:50%;
   border:4px solid white;
-  background:#e53d57;
+  background:#e43c58;
   color:white;
   font-weight:1000;
   pointer-events:auto;
-  box-shadow:0 4px 0 #8c1f32;
+  box-shadow:0 5px 0 #8e2134;
 }
 
-.attack-btn:active{
+.attack:active{
   transform:scale(.92);
 }
 
-/* effects */
+/* ======================================================
+   EFFECTS
+====================================================== */
 
 .damage{
   position:absolute;
   z-index:100;
+  font-size:19px;
   font-weight:1000;
-  font-size:20px;
   color:white;
   text-shadow:2px 2px #000;
-  animation:damage 650ms forwards;
+  transform:translate(-50%,0);
+  animation:damage .65s forwards;
   pointer-events:none;
 }
 
 @keyframes damage{
-  from{transform:translate(-50%,0) scale(1)}
-  to{transform:translate(-50%,-45px) scale(1.3);opacity:0}
+  to{
+    transform:translate(-50%,-45px) scale(1.3);
+    opacity:0;
+  }
 }
 
 .ko{
   position:absolute;
-  z-index:110;
-  font-size:30px;
-  font-weight:1000;
+  z-index:120;
   color:#ffd900;
-  text-shadow:4px 4px #ff276e,6px 6px #000;
-  animation:ko 850ms forwards;
+  font-size:35px;
+  font-weight:1000;
+  text-shadow:
+    4px 4px #ff3978,
+    7px 7px #000;
+  transform:translate(-50%,-50%);
+  animation:ko .8s forwards;
   pointer-events:none;
 }
 
 @keyframes ko{
-  0%{transform:translate(-50%,-50%) scale(.2) rotate(-10deg);opacity:0}
-  30%{transform:translate(-50%,-50%) scale(1.5) rotate(5deg);opacity:1}
-  100%{transform:translate(-50%,-90%) scale(1);opacity:0}
+  0%{
+    transform:translate(-50%,-50%) scale(.2) rotate(-15deg);
+    opacity:0;
+  }
+  30%{
+    transform:translate(-50%,-50%) scale(1.5) rotate(5deg);
+    opacity:1;
+  }
+  100%{
+    transform:translate(-50%,-90%) scale(1);
+    opacity:0;
+  }
 }
 
-.super-ring{
+.explosion{
   position:absolute;
   width:180px;
   height:180px;
   border:12px solid #ffd900;
   border-radius:50%;
-  z-index:90;
+  transform:translate(-50%,-50%) scale(.1);
+  z-index:100;
   pointer-events:none;
-  animation:ring .5s ease-out forwards;
+  animation:explode .55s forwards;
 }
 
-@keyframes ring{
-  from{
-    transform:translate(-50%,-50%) scale(.1);
-    opacity:1;
-  }
+@keyframes explode{
   to{
     transform:translate(-50%,-50%) scale(2);
     opacity:0;
   }
 }
 
-/* =========================
- RESULT
-========================= */
+/* ======================================================
+   COUNTDOWN
+====================================================== */
+
+#countdown{
+  position:absolute;
+  inset:0;
+  z-index:300;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:#0008;
+}
+
+.count{
+  font-size:100px;
+  font-weight:1000;
+  color:#ffd900;
+  text-shadow:
+    8px 8px #ff3978,
+    12px 12px #000;
+  animation:count .75s ease-out;
+}
+
+@keyframes count{
+  from{
+    transform:scale(2);
+    opacity:0;
+  }
+  60%{
+    transform:scale(1);
+    opacity:1;
+  }
+  to{
+    transform:scale(.8);
+    opacity:0;
+  }
+}
+
+/* ======================================================
+   RESULT
+====================================================== */
 
 #result{
   flex-direction:column;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   background:
-    radial-gradient(circle,#343d66,#10131c 70%);
+    radial-gradient(circle,#3b4774,#10131c 70%);
 }
 
 .result-title{
-  font-size:46px;
+  font-size:48px;
   color:#ffd900;
-  text-shadow:5px 5px #ff397c,8px 8px #000;
+  text-shadow:
+    5px 5px #ff3978,
+    8px 8px #000;
 }
 
-.final-score{
-  font-size:55px;
+.final{
+  font-size:58px;
   font-weight:1000;
 }
 
-.result-comment{
-  color:#70e5ff;
+.comment{
+  color:#6fe4ff;
   font-weight:bold;
   margin:10px;
 }
 
-.retry{
+.home-btn{
   padding:13px 50px;
   border:0;
   border-radius:30px;
-  background:#7647dd;
+  background:#7545d8;
   color:white;
   font-size:18px;
   font-weight:bold;
   cursor:pointer;
 }
 
-/* =========================
- countdown
-========================= */
-
-#countdown{
-  position:absolute;
-  inset:0;
-  z-index:200;
-  display:none;
-  justify-content:center;
-  align-items:center;
-  background:#0007;
-}
-
-.count-text{
-  font-size:100px;
-  font-weight:1000;
-  color:#ffd900;
-  text-shadow:
-    8px 8px #ff397c,
-    12px 12px #000;
-  animation:count .75s ease-out;
-}
-
-@keyframes count{
-  from{transform:scale(2);opacity:0}
-  60%{transform:scale(1);opacity:1}
-  to{transform:scale(.8);opacity:0}
-}
-
-/* mobile */
+/* ======================================================
+   MOBILE
+====================================================== */
 
 @media(max-width:700px){
+
   .game{
     width:100vw;
     height:100vh;
@@ -747,11 +901,11 @@ button{
   }
 
   .logo{
-    font-size:29px;
+    font-size:28px;
   }
 
   .mode-grid{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
   }
 
   .character-grid{
@@ -759,7 +913,7 @@ button{
   }
 
   .character{
-    min-height:135px;
+    min-height:160px;
   }
 
   .char-desc{
@@ -779,6 +933,7 @@ button{
     left:20px;
     top:20px;
   }
+
 }
 </style>
 </head>
@@ -786,131 +941,249 @@ button{
 <body>
 
 <div id="app">
+
 <div class="game">
 
-<!-- ================= HOME ================= -->
+<!-- =====================================================
+HOME
+===================================================== -->
 
 <section id="home" class="screen active">
 
-  <div class="logo">STAR BRAWL ARENA</div>
-  <div class="subtitle">チームを組んで、アリーナを制覇しよう！</div>
-
-  <div class="section-title">▼ バトルモード</div>
-
-  <div class="mode-grid">
-    <button class="mode selected" data-mode="solo">⚔️ ソロ</button>
-    <button class="mode" data-mode="duo">👥 デュオ</button>
-    <button class="mode" data-mode="trio">👥👥 トリオ</button>
-    <button class="mode" data-mode="rush">💥 ラッシュ</button>
+  <div class="logo">
+    STAR BRAWL ARENA
   </div>
 
-  <div class="section-title">▼ キャラクター</div>
+  <div class="subtitle">
+    狙いを定めて、最後まで戦い抜け！
+  </div>
+
+  <div class="section-title">
+    ▼ バトルモード
+  </div>
+
+  <div class="mode-grid">
+
+    <button class="mode selected" data-mode="solo">
+      ⚔️ ソロ
+    </button>
+
+    <button class="mode" data-mode="duo">
+      👥 デュオ
+    </button>
+
+    <button class="mode" data-mode="trio">
+      👥👥 トリオ
+    </button>
+
+  </div>
+
+  <div class="section-title">
+    ▼ キャラクター
+  </div>
 
   <div class="character-grid">
 
+    <!-- HIMIKO -->
+
     <div class="character selected" data-char="himiko">
+
       <div class="portrait">
-        <div class="unit himiko" style="position:relative;transform:none">
+
+        <div class="unit himiko"
+             style="position:relative;transform:none">
+
           <div class="unit-shadow"></div>
           <div class="hair"></div>
-          <div class="head"><i class="eye a"></i><i class="eye b"></i></div>
+
+          <div class="head">
+            <i class="eye a"></i>
+            <i class="eye b"></i>
+          </div>
+
           <div class="body"></div>
           <div class="weapon"></div>
+
         </div>
+
       </div>
 
-      <div class="char-name">HIMIKO</div>
-      <div class="char-desc">魔法弾を操る遠距離型</div>
+      <div class="char-name">
+        HIMIKO
+      </div>
+
+      <div class="char-desc">
+        🔮 3方向魔法弾・範囲攻撃
+      </div>
 
       <div class="stat">
         攻撃
-        <div class="statbar"><div class="statfill" style="width:80%"></div></div>
+        <div class="statbar">
+          <div class="statfill" style="width:80%"></div>
+        </div>
       </div>
+
       <div class="stat">
         HP
-        <div class="statbar"><div class="statfill" style="width:70%"></div></div>
+        <div class="statbar">
+          <div class="statfill" style="width:65%"></div>
+        </div>
       </div>
+
+      <div class="stat">
+        SPEED
+        <div class="statbar">
+          <div class="statfill" style="width:85%"></div>
+        </div>
+      </div>
+
     </div>
 
+
+    <!-- NOBUNAGA -->
 
     <div class="character" data-char="nobunaga">
+
       <div class="portrait">
-        <div class="unit nobunaga" style="position:relative;transform:none">
+
+        <div class="unit nobunaga"
+             style="position:relative;transform:none">
+
           <div class="unit-shadow"></div>
           <div class="hair"></div>
-          <div class="head"><i class="eye a"></i><i class="eye b"></i></div>
+
+          <div class="head">
+            <i class="eye a"></i>
+            <i class="eye b"></i>
+          </div>
+
           <div class="body"></div>
           <div class="weapon"></div>
+
         </div>
+
       </div>
 
-      <div class="char-name">NOBUNAGA</div>
-      <div class="char-desc">高速連射が得意な戦士</div>
+      <div class="char-name">
+        NOBUNAGA
+      </div>
+
+      <div class="char-desc">
+        ⚔️ 高速3連射・斬撃SUPER
+      </div>
 
       <div class="stat">
         攻撃
-        <div class="statbar"><div class="statfill" style="width:90%"></div></div>
+        <div class="statbar">
+          <div class="statfill" style="width:75%"></div>
+        </div>
       </div>
+
       <div class="stat">
         HP
-        <div class="statbar"><div class="statfill" style="width:85%"></div></div>
+        <div class="statbar">
+          <div class="statfill" style="width:85%"></div>
+        </div>
       </div>
+
+      <div class="stat">
+        SPEED
+        <div class="statbar">
+          <div class="statfill" style="width:100%"></div>
+        </div>
+      </div>
+
     </div>
 
 
+    <!-- RYOMA -->
+
     <div class="character" data-char="ryoma">
+
       <div class="portrait">
-        <div class="unit ryoma" style="position:relative;transform:none">
+
+        <div class="unit ryoma"
+             style="position:relative;transform:none">
+
           <div class="unit-shadow"></div>
           <div class="hair"></div>
-          <div class="head"><i class="eye a"></i><i class="eye b"></i></div>
+
+          <div class="head">
+            <i class="eye a"></i>
+            <i class="eye b"></i>
+          </div>
+
           <div class="body"></div>
           <div class="weapon"></div>
+
         </div>
+
       </div>
 
-      <div class="char-name">RYOMA</div>
-      <div class="char-desc">強力な一撃を放つパワー型</div>
+      <div class="char-name">
+        RYOMA
+      </div>
+
+      <div class="char-desc">
+        💥 巨大弾・超高火力
+      </div>
 
       <div class="stat">
         攻撃
-        <div class="statbar"><div class="statfill" style="width:100%"></div></div>
+        <div class="statbar">
+          <div class="statfill" style="width:100%"></div>
+        </div>
       </div>
+
       <div class="stat">
         HP
-        <div class="statbar"><div class="statfill" style="width:95%"></div></div>
+        <div class="statbar">
+          <div class="statfill" style="width:100%"></div>
+        </div>
       </div>
+
+      <div class="stat">
+        SPEED
+        <div class="statbar">
+          <div class="statfill" style="width:55%"></div>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
-  <button class="start" id="startButton">
+  <button class="start" id="start">
     BATTLE START!
   </button>
 
 </section>
 
 
-<!-- ================= BATTLE ================= -->
+<!-- =====================================================
+BATTLE
+===================================================== -->
 
 <section id="battle" class="screen">
 
   <div class="hud">
 
     <div class="hud-left">
+
       <div class="score-box">
         SCORE:
-        <span class="score-number" id="score">0</span>
+        <span class="score" id="score">0</span>
       </div>
 
       <div class="combo" id="combo">
         COMBO ×0
       </div>
+
     </div>
 
     <div class="timer-box">
       TIME:
-      <span class="timer-number" id="timer">60</span>
+      <span class="timer" id="timer">60</span>
     </div>
 
   </div>
@@ -918,45 +1191,68 @@ button{
 
   <div class="battle-area">
 
-    <div id="field"></div>
+    <div id="field">
+
+      <div id="aimLine"></div>
+      <div id="aimDot"></div>
+
+    </div>
+
 
     <div class="side">
 
-      <div class="player-card">
-        <div class="player-name" id="playerName">
+      <div class="card">
+
+        <div class="card-name" id="playerName">
           HIMIKO
         </div>
 
         <div class="hp">
           <div class="hp-fill" id="playerHp"></div>
         </div>
+
       </div>
 
-      <div class="player-card" id="ally1Card" style="display:none">
-        <div class="player-name">ALLY 1</div>
+
+      <div class="card" id="ally1Card" style="display:none">
+
+        <div class="card-name">
+          ALLY 1
+        </div>
+
         <div class="hp">
           <div class="hp-fill" id="ally1Hp"></div>
         </div>
+
       </div>
 
-      <div class="player-card" id="ally2Card" style="display:none">
-        <div class="player-name">ALLY 2</div>
+
+      <div class="card" id="ally2Card" style="display:none">
+
+        <div class="card-name">
+          ALLY 2
+        </div>
+
         <div class="hp">
           <div class="hp-fill" id="ally2Hp"></div>
         </div>
+
       </div>
 
-      <div class="power">
-        ⚡ SUPER
+
+      <div class="info">
+        SUPER
         <strong id="superPercent">0%</strong>
       </div>
 
-      <div class="power">
-        🎁 POWER
+
+      <div class="info">
+        POWER
         <strong id="powerLevel">0</strong>
       </div>
 
-      <button class="ult" id="ultButton">
+
+      <button class="ult" id="ult">
         SUPER
       </button>
 
@@ -971,7 +1267,7 @@ button{
       <div class="stick" id="stick"></div>
     </div>
 
-    <button class="attack-btn" id="attackButton">
+    <button class="attack" id="attack">
       ATTACK
     </button>
 
@@ -979,7 +1275,7 @@ button{
 
 
   <div id="countdown">
-    <div class="count-text" id="countText">
+    <div class="count" id="count">
       3
     </div>
   </div>
@@ -987,7 +1283,9 @@ button{
 </section>
 
 
-<!-- ================= RESULT ================= -->
+<!-- =====================================================
+RESULT
+===================================================== -->
 
 <section id="result" class="screen">
 
@@ -995,15 +1293,15 @@ button{
     BATTLE OVER
   </div>
 
-  <div class="final-score">
+  <div class="final">
     <span id="finalScore">0</span>
   </div>
 
-  <div class="result-comment" id="resultComment">
+  <div class="comment" id="comment">
     GREAT BATTLE!
   </div>
 
-  <button class="retry" id="retry">
+  <button class="home-btn" id="homeButton">
     HOME
   </button>
 
@@ -1016,84 +1314,103 @@ button{
 <script>
 
 /* =========================================================
-   GAME DATA
+CHARACTER DATA
 ========================================================= */
 
-const characters = {
+const CHARACTERS={
 
   himiko:{
     name:"HIMIKO",
     className:"himiko",
-    maxHp:1000,
-    speed:3.0,
-    damage:150,
-    superDamage:420
+
+    maxHp:1200,
+    speed:3.1,
+
+    damage:125,
+    projectileSpeed:9,
+    range:600,
+
+    attackType:"magic",
+
+    superDamage:450
   },
 
   nobunaga:{
     name:"NOBUNAGA",
     className:"nobunaga",
-    maxHp:1200,
-    speed:3.2,
-    damage:100,
-    superDamage:350
+
+    maxHp:1500,
+    speed:3.6,
+
+    damage:85,
+    projectileSpeed:12,
+    range:650,
+
+    attackType:"triple",
+
+    superDamage:300
   },
 
   ryoma:{
     name:"RYOMA",
     className:"ryoma",
-    maxHp:1450,
-    speed:2.7,
-    damage:230,
-    superDamage:600
+
+    maxHp:1900,
+    speed:2.6,
+
+    damage:300,
+    projectileSpeed:6,
+    range:550,
+
+    attackType:"big",
+
+    superDamage:700
   }
 
 };
 
 
 /* =========================================================
-   STATE
+STATE
 ========================================================= */
 
 let selectedCharacter="himiko";
 let selectedMode="solo";
 
 let score=0;
-let timeLeft=60;
 let combo=0;
+let timeLeft=60;
 
 let superCharge=0;
 let powerLevel=0;
 
 let gameRunning=false;
-let superMode=false;
+let superTargeting=false;
 
-let timerInterval=null;
-let gameLoop=null;
-let enemyTimer=null;
-let itemTimer=null;
-
-let keys={};
-
-let player={
-  x:150,
-  y:200,
-  hp:1000,
-  maxHp:1000,
-  speed:3,
-  damage:100
-};
+let player=null;
 
 let enemies=[];
 let projectiles=[];
 let items=[];
+let chests=[];
 let walls=[];
 
-let enemyId=0;
+let timerInterval=null;
+let enemyInterval=null;
+let itemInterval=null;
+let gameLoopId=null;
+
+let keys={};
+
+let aimX=1;
+let aimY=0;
+
+let joystickX=0;
+let joystickY=0;
 
 
 /* =========================================================
-   DOM
+DOM
 ========================================================= */
 
 const home=document.getElementById("home");
@@ -1103,34 +1420,35 @@ const result=document.getElementById("result");
 const field=document.getElementById("field");
 
 const scoreEl=document.getElementById("score");
-const timerEl=document.getElementById("timer");
 const comboEl=document.getElementById("combo");
+const timerEl=document.getElementById("timer");
 
-const playerHp=document.getElementById("playerHp");
-const playerName=document.getElementById("playerName");
+const playerHpEl=document.getElementById("playerHp");
+const playerNameEl=document.getElementById("playerName");
 
-const superPercent=document.getElementById("superPercent");
-const powerLevelEl=document.getElementById("powerLevel");
+const superEl=document.getElementById("superPercent");
+const powerEl=document.getElementById("powerLevel");
 
-const ultButton=document.getElementById("ultButton");
+const ult=document.getElementById("ult");
 
-const attackButton=document.getElementById("attackButton");
+const aimLine=document.getElementById("aimLine");
+const aimDot=document.getElementById("aimDot");
 
 
 /* =========================================================
-   MENU
+MENU
 ========================================================= */
 
-document.querySelectorAll(".mode").forEach(button=>{
+document.querySelectorAll(".mode").forEach(btn=>{
 
-  button.addEventListener("click",()=>{
+  btn.addEventListener("click",()=>{
 
     document.querySelectorAll(".mode")
       .forEach(b=>b.classList.remove("selected"));
 
-    button.classList.add("selected");
+    btn.classList.add("selected");
 
-    selectedMode=button.dataset.mode;
+    selectedMode=btn.dataset.mode;
 
   });
 
@@ -1154,60 +1472,75 @@ document.querySelectorAll(".character").forEach(card=>{
 
 
 /* =========================================================
-   START
+START GAME
 ========================================================= */
 
-document.getElementById("startButton").addEventListener("click",startGame);
+document.getElementById("start").addEventListener(
+  "click",
+  startGame
+);
+
 
 function startGame(){
 
   home.classList.remove("active");
   battle.classList.add("active");
 
-  const c=characters[selectedCharacter];
+  const c=CHARACTERS[selectedCharacter];
 
   player={
     x:120,
-    y:220,
+    y:200,
+
     hp:c.maxHp,
     maxHp:c.maxHp,
+
     speed:c.speed,
-    damage:c.damage
+    damage:c.damage,
+
+    attackCooldown:0
   };
 
   score=0;
   combo=0;
   timeLeft=60;
+
   superCharge=0;
   powerLevel=0;
 
   enemies=[];
   projectiles=[];
   items=[];
+  chests=[];
   walls=[];
 
-  field.innerHTML="";
+  field.innerHTML=`
+    <div id="aimLine"></div>
+    <div id="aimDot"></div>
+  `;
 
-  playerName.textContent=c.name;
+  playerNameEl.textContent=c.name;
 
   createMap();
   createPlayer();
 
   if(selectedMode==="duo" || selectedMode==="trio"){
-    document.getElementById("ally1Card").style.display="block";
+    document.getElementById("ally1Card")
+      .style.display="block";
   }else{
-    document.getElementById("ally1Card").style.display="none";
+    document.getElementById("ally1Card")
+      .style.display="none";
   }
 
   if(selectedMode==="trio"){
-    document.getElementById("ally2Card").style.display="block";
+    document.getElementById("ally2Card")
+      .style.display="block";
   }else{
-    document.getElementById("ally2Card").style.display="none";
+    document.getElementById("ally2Card")
+      .style.display="none";
   }
 
   updateUI();
-
-  gameRunning=false;
 
   startCountdown();
 
@@ -1215,33 +1548,35 @@ function startGame(){
 
 
 /* =========================================================
-   COUNTDOWN
+COUNTDOWN
 ========================================================= */
 
 function startCountdown(){
 
   const box=document.getElementById("countdown");
-  const text=document.getElementById("countText");
+  const text=document.getElementById("count");
 
   box.style.display="flex";
 
-  let count=3;
+  let n=3;
 
-  function next(){
+  function tick(){
 
-    text.textContent=count;
+    if(n>0){
+
+      text.textContent=n;
+
+    }else{
+
+      text.textContent="BRAWL!";
+
+    }
 
     text.style.animation="none";
     void text.offsetWidth;
     text.style.animation="count .75s ease-out";
 
-    if(count===0){
-
-      text.textContent="BRAWL!";
-
-      text.style.animation="none";
-      void text.offsetWidth;
-      text.style.animation="count .9s ease-out";
+    if(n===0){
 
       setTimeout(()=>{
 
@@ -1253,67 +1588,19 @@ function startCountdown(){
       return;
     }
 
-    count--;
+    n--;
 
-    setTimeout(next,750);
+    setTimeout(tick,750);
 
   }
 
-  next();
+  tick();
 
 }
 
 
 /* =========================================================
-   BEGIN
-========================================================= */
-
-function beginBattle(){
-
-  gameRunning=true;
-
-  spawnEnemy();
-
-  timerInterval=setInterval(()=>{
-
-    if(!gameRunning)return;
-
-    timeLeft--;
-
-    timerEl.textContent=timeLeft;
-
-    if(timeLeft<=0){
-      endGame();
-    }
-
-  },1000);
-
-
-  enemyTimer=setInterval(()=>{
-
-    if(gameRunning){
-      spawnEnemy();
-    }
-
-  },1600);
-
-
-  itemTimer=setInterval(()=>{
-
-    if(gameRunning){
-      spawnItem();
-    }
-
-  },5000);
-
-
-  gameLoop=requestAnimationFrame(loop);
-
-}
-
-
-/* =========================================================
-   MAP
+MAP
 ========================================================= */
 
 function createMap(){
@@ -1321,123 +1608,209 @@ function createMap(){
   const w=field.clientWidth;
   const h=field.clientHeight;
 
-  /* water */
-
-  createDecoration(
+  createObject(
     "water",
     0,
-    h-85,
+    h-65,
     w,
     65
   );
 
-  /* grass areas */
 
-  createDecoration(
-    "grass",
-    30,
-    60,
+  /* central walls */
+
+  createWall(
+    w/2-100,
+    h/2-20,
+    200,
+    40,
+    false
+  );
+
+
+  createWall(
+    190,
+    70,
     130,
-    90
+    35,
+    true
   );
 
-  createDecoration(
-    "grass",
-    w-180,
-    60,
-    140,
-    100
+  createWall(
+    190,
+    105,
+    35,
+    125,
+    true
   );
 
-  createDecoration(
-    "grass",
-    w/2-70,
-    h-170,
-    140,
-    80
+
+  createWall(
+    w-320,
+    70,
+    130,
+    35,
+    true
   );
 
-  /* walls */
+  createWall(
+    w-225,
+    105,
+    35,
+    125,
+    true
+  );
 
-  const mapWalls=[
-    [210,70,130,35],
-    [210,105,35,130],
-    [w-340,70,130,35],
-    [w-245,105,35,130],
 
-    [w/2-90,h/2-20,180,40],
+  createWall(
+    170,
+    h-180,
+    130,
+    35,
+    false
+  );
 
-    [180,h-220,130,35],
-    [w-310,h-220,130,35]
-  ];
+  createWall(
+    w-300,
+    h-180,
+    130,
+    35,
+    false
+  );
 
-  mapWalls.forEach(a=>{
-    createWall(...a);
+
+  /* bushes */
+
+  createObject(
+    "bush",
+    25,
+    40,
+    125,
+    85
+  );
+
+  createObject(
+    "bush",
+    w-150,
+    40,
+    125,
+    85
+  );
+
+  createObject(
+    "bush",
+    w/2-65,
+    h-155,
+    130,
+    70
+  );
+
+
+  /* chests */
+
+  createChest(
+    w/2-180,
+    h/2
+  );
+
+  createChest(
+    w/2+180,
+    h/2
+  );
+
+}
+
+
+function createObject(type,x,y,w,h){
+
+  const el=document.createElement("div");
+
+  el.className="map-object "+type;
+
+  el.style.left=x+"px";
+  el.style.top=y+"px";
+  el.style.width=w+"px";
+  el.style.height=h+"px";
+
+  field.appendChild(el);
+
+}
+
+
+function createWall(x,y,w,h,breakable){
+
+  const el=document.createElement("div");
+
+  el.className=
+    "map-object wall"+
+    (breakable?" breakable":"");
+
+  el.style.left=x+"px";
+  el.style.top=y+"px";
+  el.style.width=w+"px";
+  el.style.height=h+"px";
+
+  field.appendChild(el);
+
+  walls.push({
+    x,y,w,h,
+    breakable,
+    el,
+    hp:breakable?500:Infinity
   });
 
 }
 
 
-function createDecoration(type,x,y,w,h){
+function createChest(x,y){
 
   const el=document.createElement("div");
 
-  el.className="tile "+type;
+  el.className="chest";
 
   el.style.left=x+"px";
   el.style.top=y+"px";
-  el.style.width=w+"px";
-  el.style.height=h+"px";
 
   field.appendChild(el);
 
-}
-
-
-function createWall(x,y,w,h){
-
-  const el=document.createElement("div");
-
-  el.className="tile wall";
-
-  el.style.left=x+"px";
-  el.style.top=y+"px";
-  el.style.width=w+"px";
-  el.style.height=h+"px";
-
-  field.appendChild(el);
-
-  walls.push({x,y,w,h});
+  chests.push({
+    x,y,
+    hp:300,
+    el
+  });
 
 }
 
 
 /* =========================================================
-   PLAYER
+PLAYER
 ========================================================= */
 
 function createPlayer(){
 
-  const c=characters[selectedCharacter];
+  const c=CHARACTERS[selectedCharacter];
 
-  const unit=document.createElement("div");
+  const el=document.createElement("div");
 
-  unit.id="playerUnit";
+  el.id="playerUnit";
 
-  unit.className="unit "+c.className;
+  el.className=
+    "unit "+c.className;
 
-  unit.innerHTML=`
+  el.innerHTML=`
     <div class="unit-shadow"></div>
     <div class="hair"></div>
+
     <div class="head">
       <i class="eye a"></i>
       <i class="eye b"></i>
     </div>
+
     <div class="body"></div>
     <div class="weapon"></div>
   `;
 
-  field.appendChild(unit);
+  field.appendChild(el);
 
   updatePlayerPosition();
 
@@ -1446,23 +1819,33 @@ function createPlayer(){
 
 function updatePlayerPosition(){
 
-  const unit=document.getElementById("playerUnit");
+  const el=document.getElementById("playerUnit");
 
-  if(!unit)return;
+  if(!el)return;
 
-  unit.style.left=player.x+"px";
-  unit.style.top=player.y+"px";
+  el.style.left=player.x+"px";
+  el.style.top=player.y+"px";
 
 }
 
 
 /* =========================================================
-   MOVEMENT
+MOVEMENT
 ========================================================= */
 
 document.addEventListener("keydown",e=>{
 
   keys[e.key.toLowerCase()]=true;
+
+  if(e.code==="Space"){
+
+    e.preventDefault();
+
+    if(gameRunning){
+      fireAttack();
+    }
+
+  }
 
 });
 
@@ -1481,32 +1864,36 @@ function movePlayer(){
   let dx=0;
   let dy=0;
 
-  if(keys["arrowleft"] || keys["a"])dx--;
-  if(keys["arrowright"] || keys["d"])dx++;
-  if(keys["arrowup"] || keys["w"])dy--;
-  if(keys["arrowdown"] || keys["s"])dy++;
-
-  /* joystick */
+  if(keys["w"] || keys["arrowup"])dy--;
+  if(keys["s"] || keys["arrowdown"])dy++;
+  if(keys["a"] || keys["arrowleft"])dx--;
+  if(keys["d"] || keys["arrowright"])dx++;
 
   dx+=joystickX;
   dy+=joystickY;
 
-  const len=Math.hypot(dx,dy);
+  const length=Math.hypot(dx,dy);
 
-  if(len>0){
+  if(length>0){
 
-    dx/=len;
-    dy/=len;
+    dx/=length;
+    dy/=length;
 
-    const speed=player.speed;
+    const nx=
+      player.x+
+      dx*player.speed;
 
-    let nx=player.x+dx*speed;
-    let ny=player.y+dy*speed;
+    const ny=
+      player.y+
+      dy*player.speed;
 
-    nx=Math.max(25,Math.min(field.clientWidth-25,nx));
-    ny=Math.max(30,Math.min(field.clientHeight-35,ny));
-
-    if(!collidesWithWall(nx,ny)){
+    if(
+      nx>25 &&
+      nx<field.clientWidth-25 &&
+      ny>30 &&
+      ny<field.clientHeight-75 &&
+      !collides(nx,ny)
+    ){
 
       player.x=nx;
       player.y=ny;
@@ -1520,7 +1907,11 @@ function movePlayer(){
 }
 
 
-function collidesWithWall(x,y){
+/* =========================================================
+COLLISION
+========================================================= */
+
+function collides(x,y){
 
   const r=22;
 
@@ -1539,153 +1930,242 @@ function collidesWithWall(x,y){
 
 
 /* =========================================================
-   JOYSTICK
+AIM
 ========================================================= */
 
-let joystickX=0;
-let joystickY=0;
-
-const joystick=document.getElementById("joystick");
-const stick=document.getElementById("stick");
-
-function joystickMove(clientX,clientY){
-
-  const rect=joystick.getBoundingClientRect();
-
-  let x=clientX-(rect.left+rect.width/2);
-  let y=clientY-(rect.top+rect.height/2);
-
-  const max=32;
-
-  const distance=Math.hypot(x,y);
-
-  if(distance>max){
-
-    x=x/distance*max;
-    y=y/distance*max;
-
-  }
-
-  joystickX=x/max;
-  joystickY=y/max;
-
-  stick.style.transform=`translate(${x}px,${y}px)`;
-
-}
-
-
-function joystickEnd(){
-
-  joystickX=0;
-  joystickY=0;
-
-  stick.style.transform="translate(0,0)";
-
-}
-
-
-joystick.addEventListener("pointermove",e=>{
-  joystickMove(e.clientX,e.clientY);
-});
-
-joystick.addEventListener("pointerdown",e=>{
-  joystick.setPointerCapture(e.pointerId);
-  joystickMove(e.clientX,e.clientY);
-});
-
-joystick.addEventListener("pointerup",joystickEnd);
-joystick.addEventListener("pointercancel",joystickEnd);
-
-
-/* =========================================================
-   ATTACK
-========================================================= */
-
-field.addEventListener("pointerdown",e=>{
+function updateAim(clientX,clientY){
 
   if(!gameRunning)return;
 
-  if(superMode){
+  const rect=field.getBoundingClientRect();
 
-    useSuperAt(
-      e.clientX-field.getBoundingClientRect().left,
-      e.clientY-field.getBoundingClientRect().top
-    );
+  const x=
+    clientX-rect.left;
 
-    return;
+  const y=
+    clientY-rect.top;
 
-  }
+  let dx=x-player.x;
+  let dy=y-player.y;
 
-  shootAt(
-    e.clientX-field.getBoundingClientRect().left,
-    e.clientY-field.getBoundingClientRect().top
+  const len=Math.hypot(dx,dy);
+
+  if(len<5)return;
+
+  aimX=dx/len;
+  aimY=dy/len;
+
+  drawAim();
+
+}
+
+
+function drawAim(){
+
+  if(!player)return;
+
+  const length=100;
+
+  const x2=
+    player.x+
+    aimX*length;
+
+  const y2=
+    player.y+
+    aimY*length;
+
+  const angle=
+    Math.atan2(
+      aimY,
+      aimX
+    )*
+    180/Math.PI;
+
+  aimLine.style.left=
+    player.x+"px";
+
+  aimLine.style.top=
+    player.y+"px";
+
+  aimLine.style.width=
+    length+"px";
+
+  aimLine.style.transform=
+    `rotate(${angle}deg)`;
+
+  aimDot.style.left=
+    x2+"px";
+
+  aimDot.style.top=
+    y2+"px";
+
+}
+
+
+/* マウス */
+
+field.addEventListener("pointermove",e=>{
+
+  updateAim(
+    e.clientX,
+    e.clientY
   );
 
 });
 
 
-attackButton.addEventListener("pointerdown",e=>{
+/* タッチ */
 
-  e.preventDefault();
+field.addEventListener("pointerdown",e=>{
 
-  if(!gameRunning)return;
-
-  /* attack nearest enemy */
-
-  if(enemies.length===0)return;
-
-  let nearest=enemies[0];
-
-  let best=Infinity;
-
-  enemies.forEach(enemy=>{
-
-    const d=Math.hypot(
-      enemy.x-player.x,
-      enemy.y-player.y
-    );
-
-    if(d<best){
-
-      best=d;
-      nearest=enemy;
-
-    }
-
-  });
-
-  shootAt(nearest.x,nearest.y);
+  updateAim(
+    e.clientX,
+    e.clientY
+  );
 
 });
 
 
-function shootAt(targetX,targetY){
+/* =========================================================
+ATTACK BUTTON
+========================================================= */
 
-  const c=characters[selectedCharacter];
+document.getElementById("attack")
+  .addEventListener(
+    "pointerdown",
+    e=>{
 
-  let dx=targetX-player.x;
-  let dy=targetY-player.y;
+      e.preventDefault();
 
-  const len=Math.hypot(dx,dy);
+      if(!gameRunning)return;
 
-  if(len===0)return;
+      if(superTargeting){
 
-  dx/=len;
-  dy/=len;
+        fireSuper();
 
-  const projectile=document.createElement("div");
+      }else{
 
-  projectile.className=
-    "projectile bullet-"+c.className;
+        fireAttack();
 
-  projectile.style.left=player.x+"px";
-  projectile.style.top=player.y+"px";
+      }
 
-  field.appendChild(projectile);
+    }
+  );
+
+
+/* =========================================================
+NORMAL ATTACK
+========================================================= */
+
+function fireAttack(){
+
+  if(player.attackCooldown>0)return;
+
+  const c=CHARACTERS[selectedCharacter];
+
+  player.attackCooldown=
+    c.attackType==="triple"
+      ?12
+      :c.attackType==="big"
+        ?35
+        :20;
+
+
+  if(c.attackType==="magic"){
+
+    /* 3方向魔法 */
+
+    [-0.16,0,0.16].forEach(offset=>{
+
+      const angle=
+        Math.atan2(
+          aimY,
+          aimX
+        )+offset;
+
+      createProjectile(
+        Math.cos(angle),
+        Math.sin(angle),
+        c.damage,
+        c.projectileSpeed,
+        "magic"
+      );
+
+    });
+
+  }
+
+
+  else if(c.attackType==="triple"){
+
+    /* 高速3連射 */
+
+    [-0.08,0,0.08].forEach(offset=>{
+
+      const angle=
+        Math.atan2(
+          aimY,
+          aimX
+        )+offset;
+
+      createProjectile(
+        Math.cos(angle),
+        Math.sin(angle),
+        c.damage,
+        c.projectileSpeed,
+        "bullet"
+      );
+
+    });
+
+  }
+
+
+  else if(c.attackType==="big"){
+
+    /* 巨大弾 */
+
+    createProjectile(
+      aimX,
+      aimY,
+      c.damage,
+      c.projectileSpeed,
+      "bigbullet"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+PROJECTILE
+========================================================= */
+
+function createProjectile(
+  dx,
+  dy,
+  damage,
+  speed,
+  type
+){
+
+  const el=document.createElement("div");
+
+  el.className=
+    "projectile "+type;
+
+  el.style.left=
+    player.x+"px";
+
+  el.style.top=
+    player.y+"px";
+
+  field.appendChild(el);
 
   projectiles.push({
 
-    el:projectile,
+    el,
 
     x:player.x,
     y:player.y,
@@ -1693,11 +2173,15 @@ function shootAt(targetX,targetY){
     dx,
     dy,
 
-    speed:selectedCharacter==="ryoma"?7:9,
+    damage:
+      damage*
+      (1+powerLevel*.15),
 
-    damage:player.damage*(1+powerLevel*.12),
+    speed,
 
-    enemy:false
+    enemy:false,
+
+    life:100
 
   });
 
@@ -1705,75 +2189,209 @@ function shootAt(targetX,targetY){
 
 
 /* =========================================================
-   SUPER
+SUPER
 ========================================================= */
 
-ultButton.addEventListener("click",e=>{
-
-  e.stopPropagation();
+ult.addEventListener("click",()=>{
 
   if(superCharge<100)return;
 
-  if(!superMode){
+  if(!superTargeting){
 
-    superMode=true;
+    superTargeting=true;
 
-    ultButton.classList.add("active");
-    ultButton.textContent="SELECT";
+    ult.classList.add("targeting");
+
+    ult.textContent=
+      "SELECT";
+
+  }else{
+
+    fireSuper();
 
   }
 
 });
 
 
-function useSuperAt(x,y){
+function fireSuper(){
 
-  if(!superMode)return;
+  if(superCharge<100)return;
 
-  superMode=false;
   superCharge=0;
 
-  ultButton.classList.remove("active");
+  superTargeting=false;
 
-  const c=characters[selectedCharacter];
+  ult.classList.remove("targeting");
 
-  const ring=document.createElement("div");
+  const c=CHARACTERS[selectedCharacter];
 
-  ring.className="super-ring";
+  /* HIMIKO */
 
-  ring.style.left=x+"px";
-  ring.style.top=y+"px";
+  if(selectedCharacter==="himiko"){
 
-  field.appendChild(ring);
+    createExplosion(
+      player.x+
+      aimX*130,
 
-  setTimeout(()=>ring.remove(),550);
-
-
-  enemies.forEach(enemy=>{
-
-    const d=Math.hypot(
-      enemy.x-x,
-      enemy.y-y
+      player.y+
+      aimY*130
     );
 
-    if(d<130){
+    enemies.forEach(enemy=>{
 
-      damageEnemy(
-        enemy,
-        c.superDamage*(1+powerLevel*.1)
-      );
+      const tx=
+        player.x+
+        aimX*130;
+
+      const ty=
+        player.y+
+        aimY*130;
+
+      if(
+        Math.hypot(
+          enemy.x-tx,
+          enemy.y-ty
+        )<150
+      ){
+
+        damageEnemy(
+          enemy,
+          c.superDamage
+        );
+
+      }
+
+    });
+
+  }
+
+
+  /* NOBUNAGA */
+
+  else if(selectedCharacter==="nobunaga"){
+
+    /* 前方に巨大斬撃 */
+
+    enemies.forEach(enemy=>{
+
+      const vx=
+        enemy.x-player.x;
+
+      const vy=
+        enemy.y-player.y;
+
+      const distance=
+        Math.hypot(vx,vy);
+
+      if(distance>170)return;
+
+      const dot=
+        (vx*aimX+
+         vy*aimY)/
+        distance;
+
+      if(dot>.35){
+
+        damageEnemy(
+          enemy,
+          c.superDamage
+        );
+
+      }
+
+    });
+
+    createExplosion(
+      player.x+
+      aimX*100,
+
+      player.y+
+      aimY*100
+    );
+
+  }
+
+
+  /* RYOMA */
+
+  else if(selectedCharacter==="ryoma"){
+
+    /* 巨大な貫通爆発 */
+
+    for(let i=0;i<3;i++){
+
+      setTimeout(()=>{
+
+        createExplosion(
+          player.x+
+          aimX*(120+i*90),
+
+          player.y+
+          aimY*(120+i*90)
+        );
+
+      },i*120);
 
     }
 
-  });
+    enemies.forEach(enemy=>{
+
+      const vx=
+        enemy.x-player.x;
+
+      const vy=
+        enemy.y-player.y;
+
+      const distance=
+        Math.hypot(vx,vy);
+
+      if(distance>400)return;
+
+      const dot=
+        (vx*aimX+
+         vy*aimY)/
+        distance;
+
+      if(dot>.65){
+
+        damageEnemy(
+          enemy,
+          c.superDamage
+        );
+
+      }
+
+    });
+
+  }
 
   updateUI();
 
 }
 
 
+function createExplosion(x,y){
+
+  const el=document.createElement("div");
+
+  el.className="explosion";
+
+  el.style.left=x+"px";
+  el.style.top=y+"px";
+
+  field.appendChild(el);
+
+  setTimeout(
+    ()=>el.remove(),
+    600
+  );
+
+}
+
+
 /* =========================================================
-   ENEMIES
+ENEMY SPAWN
 ========================================================= */
 
 function spawnEnemy(){
@@ -1783,19 +2401,34 @@ function spawnEnemy(){
   const w=field.clientWidth;
   const h=field.clientHeight;
 
-  let x;
-  let y;
+  let x,y;
 
-  for(let i=0;i<20;i++){
+  for(let i=0;i<30;i++){
 
-    x=40+Math.random()*(w-80);
-    y=40+Math.random()*(h-130);
+    x=
+      40+
+      Math.random()*
+      (w-80);
 
-    if(Math.hypot(x-player.x,y-player.y)>180){
+    y=
+      40+
+      Math.random()*
+      (h-130);
+
+    if(
+      Math.hypot(
+        x-player.x,
+        y-player.y
+      )>180 &&
+      !collides(x,y)
+    ){
+
       break;
+
     }
 
   }
+
 
   const el=document.createElement("div");
 
@@ -1804,31 +2437,39 @@ function spawnEnemy(){
   el.innerHTML=`
     <div class="unit-shadow"></div>
     <div class="hair"></div>
+
     <div class="head">
       <i class="eye a"></i>
       <i class="eye b"></i>
     </div>
+
     <div class="body"></div>
     <div class="weapon"></div>
   `;
 
   field.appendChild(el);
 
+
   const enemy={
-
-    id:++enemyId,
-
-    el,
 
     x,
     y,
 
-    hp:500+powerLevel*70,
-    maxHp:500+powerLevel*70,
+    hp:
+      650+
+      powerLevel*100,
 
-    speed:.8+Math.random()*.45,
+    maxHp:
+      650+
+      powerLevel*100,
 
-    attackCooldown:0
+    speed:
+      .65+
+      Math.random()*.4,
+
+    cooldown:50,
+
+    el
 
   };
 
@@ -1838,27 +2479,38 @@ function spawnEnemy(){
 
 
 /* =========================================================
-   ENEMY AI
+ENEMY AI
 ========================================================= */
 
 function updateEnemies(){
 
   enemies.forEach(enemy=>{
 
-    let dx=player.x-enemy.x;
-    let dy=player.y-enemy.y;
+    let dx=
+      player.x-
+      enemy.x;
 
-    const distance=Math.hypot(dx,dy);
+    let dy=
+      player.y-
+      enemy.y;
 
-    if(distance>55){
+    const distance=
+      Math.hypot(dx,dy);
+
+    if(distance>60){
 
       dx/=distance;
       dy/=distance;
 
-      const nx=enemy.x+dx*enemy.speed;
-      const ny=enemy.y+dy*enemy.speed;
+      const nx=
+        enemy.x+
+        dx*enemy.speed;
 
-      if(!collidesWithWall(nx,ny)){
+      const ny=
+        enemy.y+
+        dy*enemy.speed;
+
+      if(!collides(nx,ny)){
 
         enemy.x=nx;
         enemy.y=ny;
@@ -1867,18 +2519,23 @@ function updateEnemies(){
 
     }
 
-    enemy.el.style.left=enemy.x+"px";
-    enemy.el.style.top=enemy.y+"px";
 
-    if(enemy.attackCooldown>0){
+    enemy.el.style.left=
+      enemy.x+"px";
 
-      enemy.attackCooldown--;
+    enemy.el.style.top=
+      enemy.y+"px";
 
-    }else if(distance<250){
+
+    if(enemy.cooldown>0){
+
+      enemy.cooldown--;
+
+    }else if(distance<280){
 
       enemyAttack(enemy);
 
-      enemy.attackCooldown=100;
+      enemy.cooldown=100;
 
     }
 
@@ -1888,30 +2545,46 @@ function updateEnemies(){
 
 
 /* =========================================================
-   ENEMY ATTACK
+ENEMY ATTACK
 ========================================================= */
 
 function enemyAttack(enemy){
 
-  const projectile=document.createElement("div");
+  const el=document.createElement("div");
 
-  projectile.className="projectile";
+  el.className=
+    "projectile bullet";
 
-  projectile.style.background="#ff477e";
-  projectile.style.boxShadow="0 0 12px #ff477e";
+  el.style.background=
+    "#ff3978";
 
-  projectile.style.left=enemy.x+"px";
-  projectile.style.top=enemy.y+"px";
+  el.style.boxShadow=
+    "0 0 13px #ff3978";
 
-  field.appendChild(projectile);
+  el.style.left=
+    enemy.x+"px";
 
-  const dx=player.x-enemy.x;
-  const dy=player.y-enemy.y;
-  const len=Math.hypot(dx,dy);
+  el.style.top=
+    enemy.y+"px";
+
+  field.appendChild(el);
+
+
+  const dx=
+    player.x-
+    enemy.x;
+
+  const dy=
+    player.y-
+    enemy.y;
+
+  const len=
+    Math.hypot(dx,dy);
+
 
   projectiles.push({
 
-    el:projectile,
+    el,
 
     x:enemy.x,
     y:enemy.y,
@@ -1921,9 +2594,11 @@ function enemyAttack(enemy){
 
     speed:5,
 
-    damage:55,
+    damage:60,
 
-    enemy:true
+    enemy:true,
+
+    life:120
 
   });
 
@@ -1931,33 +2606,62 @@ function enemyAttack(enemy){
 
 
 /* =========================================================
-   PROJECTILES
+PROJECTILE UPDATE
 ========================================================= */
 
 function updateProjectiles(){
 
-  projectiles.forEach((p,index)=>{
+  for(
+    let i=projectiles.length-1;
+    i>=0;
+    i--
+  ){
 
-    p.x+=p.dx*p.speed;
-    p.y+=p.dy*p.speed;
+    const p=projectiles[i];
 
-    p.el.style.left=p.x+"px";
-    p.el.style.top=p.y+"px";
+    p.x+=
+      p.dx*p.speed;
+
+    p.y+=
+      p.dy*p.speed;
+
+    p.life--;
+
+
+    p.el.style.left=
+      p.x+"px";
+
+    p.el.style.top=
+      p.y+"px";
+
+
+    if(
+      p.life<=0 ||
+      p.x<0 ||
+      p.y<0 ||
+      p.x>field.clientWidth ||
+      p.y>field.clientHeight
+    ){
+
+      removeProjectile(i);
+
+      continue;
+
+    }
 
 
     /* enemy bullet */
 
     if(p.enemy){
 
-      if(Math.hypot(
-        p.x-player.x,
-        p.y-player.y
-      )<25){
+      if(
+        Math.hypot(
+          p.x-player.x,
+          p.y-player.y
+        )<25
+      ){
 
         player.hp-=p.damage;
-
-        p.el.remove();
-        projectiles.splice(index,1);
 
         showDamage(
           player.x,
@@ -1965,11 +2669,16 @@ function updateProjectiles(){
           p.damage
         );
 
-        updateUI();
+        removeProjectile(i);
 
         if(player.hp<=0){
 
-          player.hp=player.maxHp*.5;
+          /* ゲームオーバーではなく復活 */
+
+          player.hp=
+            player.maxHp*.35;
+
+          combo=0;
 
           showMessage(
             "REVIVE!"
@@ -1977,47 +2686,168 @@ function updateProjectiles(){
 
         }
 
-      }
-
-    }else{
-
-      let hit=false;
-
-      enemies.forEach(enemy=>{
-
-        if(hit)return;
-
-        if(Math.hypot(
-          p.x-enemy.x,
-          p.y-enemy.y
-        )<30){
-
-          damageEnemy(enemy,p.damage);
-
-          hit=true;
-
-        }
-
-      });
-
-      if(hit || p.x<0 || p.y<0 ||
-        p.x>field.clientWidth ||
-        p.y>field.clientHeight){
-
-        p.el.remove();
-        projectiles.splice(index,1);
+        continue;
 
       }
 
     }
 
-  });
+
+    /* player projectile */
+
+    else{
+
+      let hit=false;
+
+
+      /* enemy */
+
+      for(
+        let j=enemies.length-1;
+        j>=0;
+        j--
+      ){
+
+        const enemy=
+          enemies[j];
+
+        if(
+          Math.hypot(
+            p.x-enemy.x,
+            p.y-enemy.y
+          )<32
+        ){
+
+          damageEnemy(
+            enemy,
+            p.damage
+          );
+
+          hit=true;
+
+          /* RYOMAは貫通 */
+
+          if(
+            selectedCharacter!=="ryoma"
+          ){
+            break;
+          }
+
+        }
+
+      }
+
+
+      /* breakable walls */
+
+      for(
+        let j=walls.length-1;
+        j>=0;
+        j--
+      ){
+
+        const wall=walls[j];
+
+        if(!wall.breakable)continue;
+
+        if(
+          p.x>wall.x &&
+          p.x<wall.x+wall.w &&
+          p.y>wall.y &&
+          p.y<wall.y+wall.h
+        ){
+
+          wall.hp-=p.damage;
+
+          if(wall.hp<=0){
+
+            wall.el.remove();
+            walls.splice(j,1);
+
+          }
+
+          hit=true;
+
+          break;
+
+        }
+
+      }
+
+
+      /* chests */
+
+      for(
+        let j=chests.length-1;
+        j>=0;
+        j--
+      ){
+
+        const chest=chests[j];
+
+        if(
+          Math.hypot(
+            p.x-chest.x,
+            p.y-chest.y
+          )<30
+        ){
+
+          chest.hp-=p.damage;
+
+          if(chest.hp<=0){
+
+            chest.el.remove();
+
+            spawnPowerCube(
+              chest.x,
+              chest.y
+            );
+
+            chests.splice(j,1);
+
+          }
+
+          hit=true;
+
+          break;
+
+        }
+
+      }
+
+
+      if(
+        hit &&
+        selectedCharacter!=="ryoma"
+      ){
+
+        removeProjectile(i);
+
+      }
+
+    }
+
+  }
+
+}
+
+
+function removeProjectile(index){
+
+  if(!projectiles[index])return;
+
+  projectiles[index].el.remove();
+
+  projectiles.splice(
+    index,
+    1
+  );
 
 }
 
 
 /* =========================================================
-   DAMAGE
+DAMAGE
 ========================================================= */
 
 function damageEnemy(enemy,damage){
@@ -2029,13 +2859,20 @@ function damageEnemy(enemy,damage){
   showDamage(
     enemy.x,
     enemy.y,
-    Math.round(damage)
+    damage
   );
 
-  superCharge=Math.min(
-    100,
-    superCharge+Math.max(5,damage/30)
-  );
+
+  superCharge=
+    Math.min(
+      100,
+      superCharge+
+      Math.max(
+        4,
+        damage/35
+      )
+    );
+
 
   if(enemy.hp<=0){
 
@@ -2043,18 +2880,20 @@ function damageEnemy(enemy,damage){
 
   }
 
-  updateUI();
-
 }
 
 
 function koEnemy(enemy){
 
-  const index=enemies.indexOf(enemy);
+  const index=
+    enemies.indexOf(enemy);
 
   if(index===-1)return;
 
-  enemies.splice(index,1);
+  enemies.splice(
+    index,
+    1
+  );
 
   enemy.el.remove();
 
@@ -2062,21 +2901,24 @@ function koEnemy(enemy){
 
   combo++;
 
-  superCharge=Math.min(
-    100,
-    superCharge+15
-  );
+  superCharge=
+    Math.min(
+      100,
+      superCharge+15
+    );
+
 
   showKO(
     enemy.x,
     enemy.y
   );
 
-  /* chance to drop power */
 
-  if(Math.random()<.45){
+  /* 敵撃破でパワーキューブ */
 
-    spawnPowerItem(
+  if(Math.random()<.5){
+
+    spawnPowerCube(
       enemy.x,
       enemy.y
     );
@@ -2087,47 +2929,34 @@ function koEnemy(enemy){
 
 
 /* =========================================================
-   ITEMS
+POWER CUBE
 ========================================================= */
 
-function spawnItem(){
+function spawnPowerCube(x,y){
 
-  if(!gameRunning)return;
+  const el=
+    document.createElement("div");
 
-  const x=50+Math.random()*(field.clientWidth-100);
-  const y=50+Math.random()*(field.clientHeight-160);
+  el.className=
+    "power-cube";
 
-  spawnPowerItem(x,y);
-
-}
-
-
-function spawnPowerItem(x,y){
-
-  const el=document.createElement("div");
-
-  el.style.position="absolute";
-  el.style.left=x+"px";
-  el.style.top=y+"px";
-  el.style.width="30px";
-  el.style.height="30px";
-  el.style.transform="translate(-50%,-50%)";
-  el.style.borderRadius="8px";
-  el.style.background="#69e34d";
-  el.style.border="3px solid white";
-  el.style.boxShadow="0 0 15px #69e34d";
-  el.style.zIndex="15";
-  el.style.display="flex";
-  el.style.alignItems="center";
-  el.style.justifyContent="center";
   el.textContent="⚡";
+
+  el.style.left=
+    x+"px";
+
+  el.style.top=
+    y+"px";
 
   field.appendChild(el);
 
+
   items.push({
-    el,
+
     x,
-    y
+    y,
+    el
+
   });
 
 }
@@ -2135,128 +2964,44 @@ function spawnPowerItem(x,y){
 
 function updateItems(){
 
-  items.forEach((item,index)=>{
+  for(
+    let i=items.length-1;
+    i>=0;
+    i--
+  ){
 
-    if(Math.hypot(
-      item.x-player.x,
-      item.y-player.y
-    )<35){
+    const item=
+      items[i];
+
+    if(
+      Math.hypot(
+        item.x-player.x,
+        item.y-player.y
+      )<35
+    ){
 
       powerLevel++;
 
-      player.hp=Math.min(
-        player.maxHp,
-        player.hp+180
-      );
+      player.hp=
+        Math.min(
+          player.maxHp,
+          player.hp+220
+        );
+
+      score+=50;
 
       item.el.remove();
 
-      items.splice(index,1);
+      items.splice(
+        i,
+        1
+      );
 
       showMessage(
         "POWER UP!"
       );
 
-      updateUI();
-
     }
-
-  });
-
-}
-
-
-/* =========================================================
-   EFFECTS
-========================================================= */
-
-function showDamage(x,y,value){
-
-  const el=document.createElement("div");
-
-  el.className="damage";
-
-  el.textContent="-"+Math.round(value);
-
-  el.style.left=x+"px";
-  el.style.top=y+"px";
-
-  field.appendChild(el);
-
-  setTimeout(()=>el.remove(),650);
-
-}
-
-
-function showKO(x,y){
-
-  const el=document.createElement("div");
-
-  el.className="ko";
-
-  el.textContent="K.O.!";
-
-  el.style.left=x+"px";
-  el.style.top=y+"px";
-
-  field.appendChild(el);
-
-  setTimeout(()=>el.remove(),850);
-
-}
-
-
-function showMessage(text){
-
-  const el=document.createElement("div");
-
-  el.className="ko";
-
-  el.textContent=text;
-
-  el.style.left="50%";
-  el.style.top="40%";
-
-  field.appendChild(el);
-
-  setTimeout(()=>el.remove(),850);
-
-}
-
-
-/* =========================================================
-   UI
-========================================================= */
-
-function updateUI(){
-
-  scoreEl.textContent=score;
-
-  comboEl.textContent=
-    "COMBO ×"+combo;
-
-  playerHp.style.width=
-    Math.max(
-      0,
-      player.hp/player.maxHp*100
-    )+"%";
-
-  superPercent.textContent=
-    Math.round(superCharge)+"%";
-
-  powerLevelEl.textContent=
-    powerLevel;
-
-  if(superCharge>=100){
-
-    ultButton.classList.add("ready");
-    ultButton.textContent=
-      superMode?"SELECT AREA":"SUPER READY";
-
-  }else{
-
-    ultButton.classList.remove("ready");
-    ultButton.textContent="SUPER";
 
   }
 
@@ -2264,27 +3009,377 @@ function updateUI(){
 
 
 /* =========================================================
-   MAIN LOOP
+EFFECTS
 ========================================================= */
 
-function loop(){
+function showDamage(x,y,value){
 
-  if(!gameRunning)return;
+  const el=
+    document.createElement("div");
 
-  movePlayer();
-  updateEnemies();
-  updateProjectiles();
-  updateItems();
+  el.className="damage";
 
-  updateUI();
+  el.textContent=
+    "-"+
+    Math.round(value);
 
-  gameLoop=requestAnimationFrame(loop);
+  el.style.left=
+    x+"px";
+
+  el.style.top=
+    y+"px";
+
+  field.appendChild(el);
+
+  setTimeout(
+    ()=>el.remove(),
+    650
+  );
+
+}
+
+
+function showKO(x,y){
+
+  const el=
+    document.createElement("div");
+
+  el.className="ko";
+
+  el.textContent="K.O.!";
+
+  el.style.left=
+    x+"px";
+
+  el.style.top=
+    y+"px";
+
+  field.appendChild(el);
+
+  setTimeout(
+    ()=>el.remove(),
+    800
+  );
+
+}
+
+
+function showMessage(text){
+
+  const el=
+    document.createElement("div");
+
+  el.className="ko";
+
+  el.textContent=text;
+
+  el.style.left=
+    "50%";
+
+  el.style.top=
+    "40%";
+
+  field.appendChild(el);
+
+  setTimeout(
+    ()=>el.remove(),
+    800
+  );
 
 }
 
 
 /* =========================================================
-   END
+JOYSTICK
+========================================================= */
+
+const joystick=
+  document.getElementById("joystick");
+
+const stick=
+  document.getElementById("stick");
+
+
+function updateJoystick(x,y){
+
+  const rect=
+    joystick.getBoundingClientRect();
+
+  let dx=
+    x-
+    (rect.left+
+     rect.width/2);
+
+  let dy=
+    y-
+    (rect.top+
+     rect.height/2);
+
+  const max=32;
+
+  const distance=
+    Math.hypot(dx,dy);
+
+  if(distance>max){
+
+    dx=
+      dx/distance*
+      max;
+
+    dy=
+      dy/distance*
+      max;
+
+  }
+
+  joystickX=
+    dx/max;
+
+  joystickY=
+    dy/max;
+
+  stick.style.transform=
+    `translate(${dx}px,${dy}px)`;
+
+}
+
+
+function resetJoystick(){
+
+  joystickX=0;
+  joystickY=0;
+
+  stick.style.transform=
+    "translate(0,0)";
+
+}
+
+
+joystick.addEventListener(
+  "pointerdown",
+  e=>{
+    joystick.setPointerCapture(
+      e.pointerId
+    );
+
+    updateJoystick(
+      e.clientX,
+      e.clientY
+    );
+  }
+);
+
+
+joystick.addEventListener(
+  "pointermove",
+  e=>{
+
+    if(
+      e.buttons ||
+      e.pressure
+    ){
+
+      updateJoystick(
+        e.clientX,
+        e.clientY
+      );
+
+    }
+
+  }
+);
+
+
+joystick.addEventListener(
+  "pointerup",
+  resetJoystick
+);
+
+joystick.addEventListener(
+  "pointercancel",
+  resetJoystick
+);
+
+
+/* =========================================================
+PLAYER COOLDOWN
+========================================================= */
+
+function updateCooldown(){
+
+  if(player.attackCooldown>0){
+
+    player.attackCooldown--;
+
+  }
+
+}
+
+
+/* =========================================================
+UI
+========================================================= */
+
+function updateUI(){
+
+  scoreEl.textContent=
+    score;
+
+  comboEl.textContent=
+    "COMBO ×"+combo;
+
+  timerEl.textContent=
+    timeLeft;
+
+  playerHpEl.style.width=
+    Math.max(
+      0,
+      player.hp/
+      player.maxHp*
+      100
+    )+"%";
+
+  superEl.textContent=
+    Math.round(superCharge)+
+    "%";
+
+  powerEl.textContent=
+    powerLevel;
+
+
+  if(superCharge>=100){
+
+    ult.classList.add("ready");
+
+    if(!superTargeting){
+
+      ult.textContent=
+        "SUPER READY";
+
+    }
+
+  }else{
+
+    ult.classList.remove("ready");
+
+    ult.textContent=
+      "SUPER";
+
+  }
+
+
+  if(superTargeting){
+
+    ult.classList.add("targeting");
+
+    ult.textContent=
+      "SELECT";
+
+  }else{
+
+    ult.classList.remove("targeting");
+
+  }
+
+}
+
+
+/* =========================================================
+GAME LOOP
+========================================================= */
+
+function gameLoop(){
+
+  if(!gameRunning)return;
+
+  movePlayer();
+
+  updateCooldown();
+
+  updateEnemies();
+
+  updateProjectiles();
+
+  updateItems();
+
+  drawAim();
+
+  updateUI();
+
+  gameLoopId=
+    requestAnimationFrame(
+      gameLoop
+    );
+
+}
+
+
+/* =========================================================
+BEGIN
+========================================================= */
+
+function beginBattle(){
+
+  gameRunning=true;
+
+  spawnEnemy();
+  spawnEnemy();
+
+  timerInterval=
+    setInterval(()=>{
+
+      if(!gameRunning)return;
+
+      timeLeft--;
+
+      if(timeLeft<=0){
+
+        endGame();
+
+      }
+
+    },1000);
+
+
+  enemyInterval=
+    setInterval(()=>{
+
+      if(gameRunning){
+
+        spawnEnemy();
+
+      }
+
+    },1800);
+
+
+  itemInterval=
+    setInterval(()=>{
+
+      if(gameRunning){
+
+        spawnPowerCube(
+          50+
+          Math.random()*
+          (field.clientWidth-100),
+
+          50+
+          Math.random()*
+          (field.clientHeight-150)
+        );
+
+      }
+
+    },7000);
+
+
+  gameLoop();
+
+}
+
+
+/* =========================================================
+END
 ========================================================= */
 
 function endGame(){
@@ -2294,63 +3389,70 @@ function endGame(){
   gameRunning=false;
 
   clearInterval(timerInterval);
-  clearInterval(enemyTimer);
-  clearInterval(itemTimer);
+  clearInterval(enemyInterval);
+  clearInterval(itemInterval);
 
-  cancelAnimationFrame(gameLoop);
+  cancelAnimationFrame(
+    gameLoopId
+  );
 
-  document.getElementById("finalScore")
-    .textContent=score;
 
-  let comment="";
+  document.getElementById(
+    "finalScore"
+  ).textContent=
+    score;
+
+
+  let comment;
 
   if(score>=1500){
-    comment="🏆 LEGENDARY BATTLE!";
+
+    comment=
+      "🏆 LEGENDARY BRAWLER!";
+
   }else if(score>=800){
-    comment="🔥 GREAT BATTLE!";
+
+    comment=
+      "🔥 AMAZING BATTLE!";
+
   }else if(score>=300){
-    comment="👍 NICE FIGHT!";
+
+    comment=
+      "👍 NICE FIGHT!";
+
   }else{
-    comment="💪 KEEP TRAINING!";
+
+    comment=
+      "💪 KEEP BRAWLING!";
+
   }
 
-  document.getElementById("resultComment")
-    .textContent=comment;
 
-  battle.classList.remove("active");
-  result.classList.add("active");
+  document.getElementById(
+    "comment"
+  ).textContent=
+    comment;
+
+
+  battle.classList.remove(
+    "active"
+  );
+
+  result.classList.add(
+    "active"
+  );
 
 }
 
 
-document.getElementById("retry").addEventListener(
+document.getElementById(
+  "homeButton"
+).addEventListener(
   "click",
   ()=>{
     location.reload();
   }
 );
-
-
-/* =========================================================
-   KEYBOARD ATTACK
-========================================================= */
-
-document.addEventListener("keydown",e=>{
-
-  if(e.code==="Space"){
-
-    e.preventDefault();
-
-    if(gameRunning){
-
-      attackButton.click();
-
-    }
-
-  }
-
-});
-
 
 </script>
 
