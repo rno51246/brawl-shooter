@@ -9,7 +9,7 @@
       --brawl-purple: #8a2be2; --brawl-dark: #0b0c10; --brawl-green: #39ff14;
     }
     body {
-      font-family: 'Arial Black', sans-serif; background: radial-gradient(circle, #1a1c29, var(--brawl-dark));
+      font-family: sans-serif; background: radial-gradient(circle, #1a1c29, var(--brawl-dark));
       color: white; text-align: center; margin: 0; padding: 5px; user-select: none; overflow: hidden;
     }
     .container {
@@ -18,7 +18,7 @@
       padding: 10px; box-shadow: 0 0 25px rgba(255, 0, 127, 0.4); position: relative;
       display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box;
     }
-    h1 { color: var(--brawl-yellow); text-shadow: 3px 3px 0px var(--brawl-pink), 4px 4px 0px #000; font-size: 26px; margin: 0; letter-spacing: 2px; }
+    h1 { color: var(--brawl-yellow); text-shadow: 3px 3px 0px var(--brawl-pink), 4px 4px 0px #000; font-size: 26px; margin: 0; }
     .screen { display: none; height: 100%; flex-direction: column; justify-content: center; align-items: center; }
     .active-screen { display: flex; }
     .home-banner { background: linear-gradient(135deg, var(--brawl-purple), var(--brawl-pink)); padding: 10px; border-radius: 12px; font-size: 13px; font-weight: bold; width: 90%; margin-bottom: 5px; }
@@ -131,23 +131,18 @@ function selectCharacter(idx, element) {
 function startGame() {
   document.getElementById("home-screen").classList.remove("active-screen");
   document.getElementById("battle-screen").classList.add("active-screen");
-  
   score = 0; timeLeft = 25; combo = 0; isUltReady = false; isUltModeActive = false;
   document.getElementById("score").innerText = score;
   document.getElementById("timer").innerText = timeLeft;
-  
   const f = document.getElementById("field");
   document.querySelectorAll('.player-unit').forEach(u => u.remove());
-  
   let leader = chars[selectedCharIdx];
   document.getElementById("p1-label").innerText = leader.avatar + " " + leader.name;
   team = [{ id: 'p1', name: leader.name, avatar: leader.avatar, hp: 100, x: 40, y: 150 }];
   document.getElementById("p1-row").style.display = "flex";
-  
   if (gameMode === 'duo' || gameMode === 'trio') {
     team.push({ id: 'p2', name: 'コルト', avatar: '🤠', hp: 100, x: 40, y: 80 });
     document.getElementById("p2-row").style.display = "flex";
   } else { document.getElementById("p2-row").style.display = "none"; }
-  
   if (gameMode === 'trio') {
     team.push({ id: 'p3', name: 'ポコ', avatar: '💀', hp: 100, x: 40, y: 220 });
